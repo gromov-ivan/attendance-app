@@ -1,15 +1,13 @@
-import Typography from '@mui/material/Typography';
-
-import Meta from '@/components/Meta';
-import { FullSizeCenteredFlexBox } from '@/components/styled';
+import DivComponent from '@/components/divComponent';
 
 function Page1() {
   return (
     <>
-      <Meta title="page 1" />
-      <FullSizeCenteredFlexBox>
-        <Typography variant="h3">Page 1</Typography>
-      </FullSizeCenteredFlexBox>
+      <h1>Test page</h1>
+      <DivComponent>
+        <h1 style={{ color: 'black' }}>This is a test header for the div element!</h1>
+        <p style={{ color: 'black' }}>This text paragraph is also meant for testing!</p>
+      </DivComponent>
     </>
   );
 }
