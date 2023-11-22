@@ -8,7 +8,7 @@ function Page2() {
     <>
       <Meta title="page 2" />
       <FullSizeCenteredFlexBox>
-        <Typography variant="h3">Page 2</Typography>
+        <Typography variant="h3">QR Code</Typography>
       </FullSizeCenteredFlexBox>
     </>
   );

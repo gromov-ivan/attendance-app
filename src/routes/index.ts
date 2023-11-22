@@ -1,47 +1,36 @@
-import AddTaskIcon from '@mui/icons-material/AddTask';
-import BugReportIcon from '@mui/icons-material/BugReport';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import QrCode2Icon from '@mui/icons-material/QrCode2';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
-import TerrainIcon from '@mui/icons-material/Terrain';
 
 import asyncComponentLoader from '@/utils/loader';
 
 import { Pages, Routes } from './types';
 
 const routes: Routes = {
-  [Pages.Welcome]: {
-    component: asyncComponentLoader(() => import('@/pages/Welcome')),
+  [Pages.HomePage]: {
+    component: asyncComponentLoader(() => import('@/pages/HomePage')),
     path: '/',
-    title: 'Welcome',
+    title: 'Home Page',
     icon: HomeIcon,
   },
   [Pages.Page1]: {
     component: asyncComponentLoader(() => import('@/pages/Page1')),
     path: '/page-1',
-    title: 'Page 1',
-    icon: GitHubIcon,
+    title: 'Attendance List',
+    icon: FormatListBulletedIcon,
   },
   [Pages.Page2]: {
     component: asyncComponentLoader(() => import('@/pages/Page2')),
     path: '/page-2',
-    title: 'Page 2',
-    icon: AddTaskIcon,
+    title: 'QR Code',
+    icon: QrCode2Icon,
   },
   [Pages.Page3]: {
     component: asyncComponentLoader(() => import('@/pages/Page3')),
     path: '/page-3',
-    title: 'Page 3',
-    icon: TerrainIcon,
-  },
-  [Pages.Page4]: {
-    component: asyncComponentLoader(() => import('@/pages/Page4')),
-    path: '/page-4',
-    title: 'Page 4',
-    icon: BugReportIcon,
-  },
-  [Pages.NotFound]: {
-    component: asyncComponentLoader(() => import('@/pages/NotFound')),
-    path: '*',
+    title: 'Settings',
+    icon: SettingsIcon,
   },
 };
 

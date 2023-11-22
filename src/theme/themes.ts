@@ -15,6 +15,13 @@ const sharedTheme = {
       defaultProps: {
         disableRipple: true,
       },
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            color: '#fff',
+          }
+        }
+      },
     },
     MuiDivider: {
       styleOverrides: {
@@ -22,8 +29,6 @@ const sharedTheme = {
           marginRight: 10,
           marginLeft: 10,
         },
-        // TODO: open issue for missing "horizontal" CSS rule
-        // in Divider API - https://mui.com/material-ui/api/divider/#css
         middle: {
           marginTop: 10,
           marginBottom: 10,
@@ -32,19 +37,27 @@ const sharedTheme = {
       },
     },
   },
-} as ThemeOptions; // the reason for this casting is deepmerge return type
-// TODO (Suren): replace mui-utils-deepmerge with lodash or ramda deepmerge
+} as ThemeOptions;
 
 const themes: Record<Themes, ThemeOptions> = {
   light: deepmerge(sharedTheme, {
     palette: {
       mode: 'light',
+      text: {
+        primary: '#000000',
+      },
       background: {
-        default: '#fafafa',
-        paper: '#fff',
+        default: '#ffffff',
+        paper: '#f2f2f2',
       },
       primary: {
-        main: '#3f51b5',
+        main: '#ff854d',
+      },
+      secondary: {
+        main: '#f2f2f2',
+      },
+      accent: {
+        main: '#53565a',
       },
     },
   }),
