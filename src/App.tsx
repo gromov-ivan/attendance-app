@@ -14,18 +14,29 @@ import Sidebar from '@/sections/Sidebar';
 
 function App() {
   return (
-    <Fragment>
-      <CssBaseline />
-      <Notifications />
-      <HotKeys />
-      <SW />
-      <BrowserRouter>
-        <Header />
-        <Sidebar />
-        <Pages />
-      </BrowserRouter>
-    </Fragment>
-  );
-}
+    <div
+        style={{
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("/background.jpeg")'
+        }}
+        >
+          <Fragment>
+          <CssBaseline />
+          <Notifications />
+          <HotKeys />
+          <SW />
+          <BrowserRouter>
+            <Header />
+            <Sidebar />
+            <Pages />
+          </BrowserRouter>
+          </Fragment>
+          </div>
+        );
+      }
 
-export default withErrorHandler(App, AppErrorBoundaryFallback);
+      export default withErrorHandler(App, AppErrorBoundaryFallback);
