@@ -1,5 +1,6 @@
-import GitHubIcon from '@mui/icons-material/GitHub';
-import ThemeIcon from '@mui/icons-material/InvertColors';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import LanguageIcon from '@mui/icons-material/Language';
+//import ThemeIcon from '@mui/icons-material/InvertColors';
 import MenuIcon from '@mui/icons-material/Menu';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -12,37 +13,30 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 
 import { FlexBox } from '@/components/styled';
-import { repository, title } from '@/config';
+import { title } from '@/config';
 import useHotKeysDialog from '@/store/hotkeys';
 import useNotifications from '@/store/notifications';
 import useSidebar from '@/store/sidebar';
-import useTheme from '@/store/theme';
+//import useTheme from '@/store/theme';
 
 import { HotKeysButton } from './styled';
-import { getRandomJoke } from './utils';
+import { Fade } from '@mui/material';
 
 function Header() {
   const [, sidebarActions] = useSidebar();
-  const [, themeActions] = useTheme();
+  //const [, themeActions] = useTheme();
   const [, notificationsActions] = useNotifications();
   const [, hotKeysDialogActions] = useHotKeysDialog();
 
   function showNotification() {
     notificationsActions.push({
       options: {
-        // Show fully customized notification
-        // Usually, to show a notification, you'll use something like this:
-        // notificationsActions.push({ message: ... })
-        // `message` accepts string as well as ReactNode
-        // But you also can use:
-        // notificationsActions.push({ options: { content: ... } })
-        // to show fully customized notification
         content: (
           <Alert severity="info">
-            <AlertTitle>Notification demo (random IT jokes :))</AlertTitle>
-            {getRandomJoke()}
+            <AlertTitle>Welcome to the Attendance App!</AlertTitle>
           </Alert>
         ),
+        autoHideDuration: 3000,
       },
     });
   }
@@ -56,19 +50,19 @@ function Header() {
               onClick={sidebarActions.toggle}
               size="large"
               edge="start"
-              color="info"
+              color="primary"
               aria-label="menu"
               sx={{ mr: 1 }}
             >
               <MenuIcon />
             </IconButton>
-            <Button onClick={showNotification} color="info">
+            <Button onClick={showNotification} color="primary">
               {title}
             </Button>
           </FlexBox>
           <FlexBox>
             <FlexBox>
-              <Tooltip title="Hot keys" arrow>
+              <Tooltip TransitionComponent={Fade} title="Hot keys" arrow>
                 <HotKeysButton
                   size="small"
                   variant="outlined"
@@ -80,17 +74,24 @@ function Header() {
               </Tooltip>
             </FlexBox>
             <Divider orientation="vertical" flexItem />
-            <Tooltip title="It's open source" arrow>
-              <IconButton color="info" size="large" component="a" href={repository} target="_blank">
-                <GitHubIcon />
+            <Tooltip TransitionComponent={Fade} title="Language" arrow>
+              <IconButton color="primary" size="large" component="a">
+                <LanguageIcon />
               </IconButton>
             </Tooltip>
             <Divider orientation="vertical" flexItem />
-            <Tooltip title="Switch theme" arrow>
-              <IconButton color="info" edge="end" size="large" onClick={themeActions.toggle}>
+            <Tooltip TransitionComponent={Fade} title="Profile" arrow>
+              <IconButton color="primary" size="large" component="a">
+                <AccountBoxIcon />
+              </IconButton>
+            </Tooltip>
+            {/*
+            <Tooltip TransitionComponent={Fade} title="Switch theme" arrow>
+              <IconButton color="primary" edge="end" size="large" onClick={themeActions.toggle}>
                 <ThemeIcon />
               </IconButton>
             </Tooltip>
+            */}
           </FlexBox>
         </Toolbar>
       </AppBar>

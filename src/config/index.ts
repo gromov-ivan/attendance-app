@@ -2,29 +2,29 @@ import isMobile from '@/utils/is-mobile';
 
 import type { Notifications } from './types';
 
-const title = 'React PWA';
+const title = 'Metropolia Attendance App';
 
-const email = 'auther-email@gmail.com';
+const email = 'ivan.gromov@metropolia.fi';
 
-const repository = 'https://github.com/suren-atoyan/react-pwa';
+const repository = 'https://github.com/gromov-ivan/attendance-app';
 
 const messages = {
   app: {
     crash: {
-      title: 'Oooops... Sorry, I guess, something went wrong. You can:',
+      title: 'Unfortunately, the application has crashed. You can:',
       options: {
-        email: `contact with author by this email - ${email}`,
+        email: `Contact with author by this email: ${email}`,
         reset: 'Press here to reset the application',
       },
     },
   },
   loader: {
-    fail: 'Hmmmmm, there is something wrong with this component loading process... Maybe trying later would be the best idea',
+    fail: 'Something went wrong during loading. Please, try again later.',
   },
   images: {
-    failed: 'something went wrong during image loading :(',
+    failed: 'Something went wrong during image loading.',
   },
-  404: 'Hey bro? What are you looking for?',
+  404: 'Page not found.',
 };
 
 const dateFormat = 'MMMM DD, YYYY';
@@ -41,16 +41,15 @@ const notifications: Notifications = {
 };
 
 const loader = {
-  // no more blinking in your app
+  // removing blinking
   delay: 300, // if your asynchronous process is finished during 300 milliseconds you will not see the loader at all
   minimumLoading: 700, // but if it appears, it will stay for at least 700 milliseconds
 };
 
 const defaultMetaTags = {
   image: '/cover.png',
-  description: 'Starter kit for modern web applications',
+  description: 'Metropolia University of Applied Sciences Attendance App',
 };
-const giphy404 = 'https://giphy.com/embed/xTiN0L7EW5trfOvEk0';
 
 export {
   loader,
@@ -61,5 +60,4 @@ export {
   email,
   title,
   defaultMetaTags,
-  giphy404,
 };

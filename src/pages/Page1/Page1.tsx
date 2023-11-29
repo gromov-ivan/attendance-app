@@ -8,7 +8,7 @@ function Page1() {
     <>
       <Meta title="page 1" />
       <FullSizeCenteredFlexBox>
-        <Typography variant="h3">Page 1</Typography>
+        <Typography variant="h3">Attendace List</Typography>
       </FullSizeCenteredFlexBox>
     </>
   );

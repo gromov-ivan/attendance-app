@@ -8,7 +8,7 @@ import { useRegisterSW } from 'virtual:pwa-register/react';
 
 import useNotifications from '@/store/notifications';
 
-// TODO (Suren): this should be a custom hook :)
+// TODO: this should be a custom hook
 function SW() {
   const [, notificationsActions] = useNotifications();
   const notificationKey = useRef<SnackbarKey | null>(null);
