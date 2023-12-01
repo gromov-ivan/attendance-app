@@ -32,6 +32,12 @@ const routes: Routes = {
     title: 'Settings',
     icon: SettingsIcon,
   },
+  [Pages.Page5]: {
+    component: asyncComponentLoader(() => import('@/pages/Page5')),
+    path: '/page-5',
+    title: 'Page 5',
+    icon: SettingsIcon,
+  },
 };
 
 export default routes;
