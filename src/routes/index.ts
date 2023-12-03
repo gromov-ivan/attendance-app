@@ -2,9 +2,11 @@ import QrCode2Icon from '@mui/icons-material/QrCode2';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
-
+import CourseForm from '@/pages/QrCode/CourseForm';
+import QrCodeGenerator from '@/pages/QrCode/QrCodeGenerator';
+import StudentFormPage from '@/pages/StudentForm/StudentFormPage';
 import asyncComponentLoader from '@/utils/loader';
-
+import { PropTypes } from '@mui/material';
 import { Pages, Routes } from './types';
 
 const routes: Routes = {
