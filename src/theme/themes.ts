@@ -64,13 +64,22 @@ const themes: Record<Themes, ThemeOptions> = {
 
   dark: deepmerge(sharedTheme, {
     palette: {
-      mode: 'dark',
+      mode: 'light',
+      text: {
+        primary: '#000000',
+      },
       background: {
-        default: '#111',
-        paper: '#171717',
+        default: '#ffffff',
+        paper: '#f2f2f2',
       },
       primary: {
-        main: '#333',
+        main: '#ff854d',
+      },
+      secondary: {
+        main: '#f2f2f2',
+      },
+      accent: {
+        main: '#53565a',
       },
     },
   }),

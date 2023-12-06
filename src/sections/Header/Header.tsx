@@ -1,7 +1,7 @@
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import LanguageIcon from '@mui/icons-material/Language';
-//import ThemeIcon from '@mui/icons-material/InvertColors';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Fade } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import AppBar from '@mui/material/AppBar';
@@ -17,14 +17,12 @@ import { title } from '@/config';
 import useHotKeysDialog from '@/store/hotkeys';
 import useNotifications from '@/store/notifications';
 import useSidebar from '@/store/sidebar';
-//import useTheme from '@/store/theme';
+import { logout } from '@/utils/handleLogout';
 
 import { HotKeysButton } from './styled';
-import { Fade } from '@mui/material';
 
 function Header() {
   const [, sidebarActions] = useSidebar();
-  //const [, themeActions] = useTheme();
   const [, notificationsActions] = useNotifications();
   const [, hotKeysDialogActions] = useHotKeysDialog();
 
@@ -74,24 +72,17 @@ function Header() {
               </Tooltip>
             </FlexBox>
             <Divider orientation="vertical" flexItem />
-            <Tooltip TransitionComponent={Fade} title="Language" arrow>
-              <IconButton color="primary" size="large" component="a">
-                <LanguageIcon />
-              </IconButton>
-            </Tooltip>
-            <Divider orientation="vertical" flexItem />
             <Tooltip TransitionComponent={Fade} title="Profile" arrow>
               <IconButton color="primary" size="large" component="a">
                 <AccountBoxIcon />
               </IconButton>
             </Tooltip>
-            {/*
-            <Tooltip TransitionComponent={Fade} title="Switch theme" arrow>
-              <IconButton color="primary" edge="end" size="large" onClick={themeActions.toggle}>
-                <ThemeIcon />
+            <Divider orientation="vertical" flexItem />
+            <Tooltip TransitionComponent={Fade} title="Log out" arrow>
+              <IconButton color="primary" size="large" component="a" onClick={logout}>
+                <LogoutOutlinedIcon />
               </IconButton>
             </Tooltip>
-            */}
           </FlexBox>
         </Toolbar>
       </AppBar>
