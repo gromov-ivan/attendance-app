@@ -19,13 +19,18 @@ function HomePage() {
   const selectedCourses = courses[tabLabels[selectedTab]];
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
-      <Box sx={{ flexGrow: 1, p: 3 }}>
+    <Box sx={{ display: 'flex'
+    }}>
+
+      <Box sx={{ flexGrow: 1, p: 3,
+        backgroundColor: 'rgba(250,250,250,0.6)',
+        margin: '25px',
+        }}>
         <AppBar
           position="static"
           elevation={0}
           sx={{
-            background: 'transparent',
+            background: 'rgba(255, 255, 255, 0.2)',
             border: '1px solid',
             borderColor: '#bfbfbf',
             borderRadius: '0.5rem',

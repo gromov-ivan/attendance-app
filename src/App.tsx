@@ -41,22 +41,33 @@ function App() {
   }
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <Notifications />
-      <SW />
-      <BrowserRouter>
+    <div
+        style={{
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("/background.jpeg")'
+        }}
+        >
+          <React.Fragment>
+          <CssBaseline />
+          <Notifications />
+              <SW />
+          <BrowserRouter>
         {session && (
           <>
             <HotKeys />
-            <Header />
-            <Sidebar />
+                <Header />
+                <Sidebar />
           </>
         )}
-        <Pages session={session} />
-      </BrowserRouter>
-    </React.Fragment>
-  );
-}
+            <Pages session={session} />
+          </BrowserRouter>
+          </React.Fragment>
+          </div>
+        );
+      }
 
-export default withErrorHandler(App, AppErrorBoundaryFallback);
+      export default withErrorHandler(App, AppErrorBoundaryFallback);
