@@ -44,7 +44,7 @@ interface StudentFormProps {
 
 type PathRouteCustomProps = {
   title?: string;
-  component: FC<CourseFormProps> | FC;
+  component: FC;
   icon?: FC<SvgIconProps>;
   routes?: NestedRoute[];
 };

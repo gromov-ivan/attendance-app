@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { AppBar, Box, Grid, Paper, Tab, Tabs, Typography } from '@mui/material';
 
 function HomePage() {
@@ -12,25 +13,25 @@ function HomePage() {
     Active: ['Mobile Project', 'Sensor Based Mobile Applications'],
     Upcoming: ['Bachelor’s Thesis (Mobile Solutions)'],
     Archived: ['Web Development'],
-    All: ['Mobile Project', 'Bachelor’s Thesis (Mobile Solutions)', 'Sensor Based Mobile Applications', 'Web Development'],
+    All: [
+      'Mobile Project',
+      'Bachelor’s Thesis (Mobile Solutions)',
+      'Sensor Based Mobile Applications',
+      'Web Development',
+    ],
   };
 
   const tabLabels: (keyof typeof courses)[] = ['Active', 'Upcoming', 'Archived', 'All'];
   const selectedCourses = courses[tabLabels[selectedTab]];
 
   return (
-    <Box sx={{ display: 'flex'
-    }}>
-
-      <Box sx={{ flexGrow: 1, p: 3,
-        backgroundColor: 'rgba(250,250,250,0.6)',
-        margin: '25px',
-        }}>
+    <Box sx={{ display: 'flex' }}>
+      <Box sx={{ flexGrow: 1, backgroundColor: '#fff', margin: '24px 8px' }}>
         <AppBar
           position="static"
           elevation={0}
           sx={{
-            background: 'rgba(255, 255, 255, 0.2)',
+            background: '#fff',
             border: '1px solid',
             borderColor: '#bfbfbf',
             borderRadius: '0.5rem',
@@ -43,7 +44,7 @@ function HomePage() {
             sx={{ borderRadius: '0.5rem', padding: '0.5rem' }}
           >
             {tabLabels.map((label, index) => (
-              <Tab key={label} label={label} />
+              <Tab key={label} label={label} disableTouchRipple/>
             ))}
           </Tabs>
         </AppBar>

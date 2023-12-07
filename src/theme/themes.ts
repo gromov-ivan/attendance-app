@@ -11,16 +11,40 @@ const sharedTheme = {
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        outlined: {
+
+        },
+        contained: {
+          color: '#fff',
+          backgroundColor: '#ff7433',
+          '&:hover': {
+            backgroundColor: '#ff621a',
+          },
+        },
+      },
+    },
     MuiButtonBase: {
       defaultProps: {
-        disableRipple: true,
+        disableTouchRipple: false,
       },
       styleOverrides: {
         root: {
           '&.Mui-selected': {
             color: '#fff',
-          }
-        }
+          },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#fff',
+          '&:hover': {
+            backgroundColor: '#fff',
+          },
+        },
       },
     },
     MuiDivider: {

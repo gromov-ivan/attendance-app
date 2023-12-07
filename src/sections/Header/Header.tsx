@@ -40,9 +40,8 @@ function Header() {
   }
 
   return (
-    <Box sx={{ flexGrow: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)'}}>
-      <AppBar color="transparent" elevation={1} position="static">
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar color="transparent" elevation={2} sx={{ borderRadius: '0.5rem' }} position="static">
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <FlexBox sx={{ alignItems: 'center' }}>
             <IconButton
@@ -61,7 +60,7 @@ function Header() {
           </FlexBox>
           <FlexBox>
             <FlexBox>
-              <Tooltip TransitionComponent={Fade} title="Hot keys" arrow>
+              <Tooltip TransitionComponent={Fade} title="Hot Keys" arrow>
                 <HotKeysButton
                   size="small"
                   variant="outlined"
@@ -73,13 +72,13 @@ function Header() {
               </Tooltip>
             </FlexBox>
             <Divider orientation="vertical" flexItem />
-            <Tooltip TransitionComponent={Fade} title="Profile" arrow>
+            <Tooltip TransitionComponent={Fade} title="Your Account" arrow>
               <IconButton color="primary" size="large" component="a">
                 <AccountBoxIcon />
               </IconButton>
             </Tooltip>
             <Divider orientation="vertical" flexItem />
-            <Tooltip TransitionComponent={Fade} title="Log out" arrow>
+            <Tooltip TransitionComponent={Fade} title="Log Out" arrow>
               <IconButton color="primary" size="large" component="a" onClick={logout}>
                 <LogoutOutlinedIcon />
               </IconButton>

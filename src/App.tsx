@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import CssBaseline from '@mui/material/CssBaseline';
-
 import { Session } from '@supabase/supabase-js';
 
 import { withErrorHandler } from '@/error-handling';
@@ -13,8 +11,8 @@ import SW from '@/sections/SW';
 import Sidebar from '@/sections/Sidebar';
 
 import Pages from './routes/Pages';
-import { supabase } from './supabaseClient';
 import HotKeys from './sections/HotKeys';
+import { supabase } from './supabaseClient';
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);
@@ -29,7 +27,9 @@ function App() {
 
     fetchSession();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
@@ -41,33 +41,21 @@ function App() {
   }
 
   return (
-    <div
-        style={{
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("/background.jpeg")'
-        }}
-        >
-          <React.Fragment>
-          <CssBaseline />
-          <Notifications />
-              <SW />
-          <BrowserRouter>
+    <React.Fragment>
+      <Notifications />
+      <SW />
+      <BrowserRouter>
         {session && (
           <>
             <HotKeys />
-                <Header />
-                <Sidebar />
+            <Header />
+            <Sidebar />
           </>
         )}
-            <Pages session={session} />
-          </BrowserRouter>
-          </React.Fragment>
-          </div>
-        );
-      }
+        <Pages session={session} />
+      </BrowserRouter>
+    </React.Fragment>
+  );
+}
 
-      export default withErrorHandler(App, AppErrorBoundaryFallback);
+export default withErrorHandler(App, AppErrorBoundaryFallback);

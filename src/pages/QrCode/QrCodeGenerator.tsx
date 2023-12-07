@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import QRCode from 'qrcode.react';
 
 interface QrCodeGeneratorProps {
@@ -17,6 +18,7 @@ const QrCodeGenerator: React.FC<QrCodeGeneratorProps> = ({ courseName, date }) =
 
   return (
     <div>
+      <br />
       <QRCode value={qrCodeData} />
     </div>
   );

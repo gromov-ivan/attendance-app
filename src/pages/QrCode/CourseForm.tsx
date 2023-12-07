@@ -1,6 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
+import { Button, TextField, Typography } from '@mui/material';
+
 export interface CourseFormData {
   courseName: string;
   date: string;
@@ -23,16 +25,20 @@ const CourseForm: React.FC<CourseFormProps> = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <label>
-        Course Name:
-        <input {...register('courseName')} />
+        <Typography>Course Name:</Typography>
+        <TextField variant="outlined" size="small" {...register('courseName')} />
       </label>
       <br />
+      <br />
       <label>
-        Date:
+      <Typography>Date:</Typography>
         <input type="date" {...register('date')} />
       </label>
       <br />
-      <button type="submit">Generate QR Code</button>
+      <br />
+      <Button type="submit" variant="contained" disableElevation>
+        Generate QR Code
+      </Button>
     </form>
   );
 };

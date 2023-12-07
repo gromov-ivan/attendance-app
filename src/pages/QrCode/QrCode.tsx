@@ -1,8 +1,10 @@
-// QrCode.tsx
-import React, { useState, useEffect } from 'react';
-import QrCodeGenerator from './QrCodeGenerator';
-import CourseForm, { CourseFormData } from './CourseForm';
+import React, { useEffect, useState } from 'react';
+
+import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+
+import CourseForm, { CourseFormData } from './CourseForm';
+import QrCodeGenerator from './QrCodeGenerator';
 
 const QrCode: React.FC = () => {
   const [courseInfo, setCourseInfo] = useState<CourseFormData>({ courseName: '', date: '' });
@@ -37,17 +39,34 @@ const QrCode: React.FC = () => {
       <Box
         sx={{
           flexGrow: 1,
-          p: 3,
-          backgroundColor: 'rgba(250, 250, 250, 0.6)',
-          margin: '25px',
+          margin: '24px 8px',
+          padding: 2,
+          backgroundColor: '#f2f2f2',
+          border: '1px solid',
+          borderColor: '#bfbfbf',
+          borderRadius: '0.5rem',
         }}
       >
-        <div>
-          <h1>Course Information</h1>
-          <CourseForm onSubmit={handleFormSubmit} />
-          <button onClick={handleDeactivateQrCode}>Deactivate QR Code</button>
-          {showQrCode && <QrCodeGenerator courseName={courseInfo.courseName} date={courseInfo.date} />}
-        </div>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <Typography variant="h5" sx={{ fontWeight: 500 }}>
+              Course Information
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <CourseForm onSubmit={handleFormSubmit} />
+          </Grid>
+          <Grid item xs={12}>
+            <Button onClick={handleDeactivateQrCode} variant="contained" disableElevation>
+              Deactivate QR Code
+            </Button>
+          </Grid>
+          {showQrCode && (
+            <Grid item xs={12}>
+              <QrCodeGenerator courseName={courseInfo.courseName} date={courseInfo.date} />
+            </Grid>
+          )}
+        </Grid>
       </Box>
     </Box>
   );
