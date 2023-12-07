@@ -1,4 +1,3 @@
-// QrCode.tsx
 import React, { useState, useEffect } from 'react';
 import QrCodeGenerator from './QrCodeGenerator';
 import CourseForm, { CourseFormData } from './CourseForm';
@@ -6,30 +5,23 @@ import { Box } from '@mui/system';
 
 const QrCode: React.FC = () => {
   const [courseInfo, setCourseInfo] = useState<CourseFormData>({ courseName: '', date: '' });
-  const [showQrCode, setShowQrCode] = useState<boolean>(false);
+  const [qrCodeKey, setQrCodeKey] = useState<number>(0);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
-    if (showQrCode) {
-      // Update the QR code every 5 seconds when showQrCode is true
-      intervalId = setInterval(() => {
-        // Fetch updated course information if needed
-        // For now, use the existing courseInfo state
-      }, 5000);
-    }
+    // Update the QR code every 5 seconds
+    const intervalId = setInterval(() => {
+      // Incrementing the key will force the QrCodeGenerator component to re-render
+      setQrCodeKey((prevKey) => prevKey + 1);
+    }, 5000);
 
     return () => clearInterval(intervalId);
-  }, [showQrCode, courseInfo]);
+  }, []);
 
   const handleFormSubmit = (data: CourseFormData) => {
     // Update the course information when the form is submitted
     setCourseInfo(data);
-    setShowQrCode(true); // Show the QR code
-  };
-
-  const handleDeactivateQrCode = () => {
-    setShowQrCode(false);
+    // Reset the key to force the QrCodeGenerator component to re-render immediately
+    setQrCodeKey((prevKey) => prevKey + 1);
   };
 
   return (
@@ -45,8 +37,7 @@ const QrCode: React.FC = () => {
         <div>
           <h1>Course Information</h1>
           <CourseForm onSubmit={handleFormSubmit} />
-          <button onClick={handleDeactivateQrCode}>Deactivate QR Code</button>
-          {showQrCode && <QrCodeGenerator courseName={courseInfo.courseName} date={courseInfo.date} />}
+          <QrCodeGenerator key={qrCodeKey} courseName={courseInfo.courseName} date={courseInfo.date} />
         </div>
       </Box>
     </Box>

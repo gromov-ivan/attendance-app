@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 export interface CourseFormData {
   courseName: string;
@@ -32,7 +34,7 @@ const CourseForm: React.FC<CourseFormProps> = ({ onSubmit }) => {
         <input type="date" {...register('date')} />
       </label>
       <br />
-      <button type="submit">Generate QR Code</button>
+      <button color="#EE9658" type="submit">Generate QR Code</button>
     </form>
   );
 };
