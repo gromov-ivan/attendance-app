@@ -11,9 +11,40 @@ const sharedTheme = {
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        outlined: {
+
+        },
+        contained: {
+          color: '#fff',
+          backgroundColor: '#ff7433',
+          '&:hover': {
+            backgroundColor: '#ff621a',
+          },
+        },
+      },
+    },
     MuiButtonBase: {
       defaultProps: {
-        disableRipple: true,
+        disableTouchRipple: false,
+      },
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            color: '#fff',
+          },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#fff',
+          '&:hover': {
+            backgroundColor: '#fff',
+          },
+        },
       },
     },
     MuiDivider: {
@@ -22,8 +53,6 @@ const sharedTheme = {
           marginRight: 10,
           marginLeft: 10,
         },
-        // TODO: open issue for missing "horizontal" CSS rule
-        // in Divider API - https://mui.com/material-ui/api/divider/#css
         middle: {
           marginTop: 10,
           marginBottom: 10,
@@ -32,32 +61,49 @@ const sharedTheme = {
       },
     },
   },
-} as ThemeOptions; // the reason for this casting is deepmerge return type
-// TODO (Suren): replace mui-utils-deepmerge with lodash or ramda deepmerge
+} as ThemeOptions;
 
 const themes: Record<Themes, ThemeOptions> = {
   light: deepmerge(sharedTheme, {
     palette: {
       mode: 'light',
+      text: {
+        primary: '#000000',
+      },
       background: {
-        default: '#fafafa',
-        paper: '#fff',
+        default: '#ffffff',
+        paper: '#f2f2f2',
       },
       primary: {
-        main: '#3f51b5',
+        main: '#ff854d',
+      },
+      secondary: {
+        main: '#f2f2f2',
+      },
+      accent: {
+        main: '#53565a',
       },
     },
   }),
 
   dark: deepmerge(sharedTheme, {
     palette: {
-      mode: 'dark',
+      mode: 'light',
+      text: {
+        primary: '#000000',
+      },
       background: {
-        default: '#111',
-        paper: '#171717',
+        default: '#ffffff',
+        paper: '#f2f2f2',
       },
       primary: {
-        main: '#333',
+        main: '#ff854d',
+      },
+      secondary: {
+        main: '#f2f2f2',
+      },
+      accent: {
+        main: '#53565a',
       },
     },
   }),
