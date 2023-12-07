@@ -26,6 +26,7 @@ const QrCode: React.FC = () => {
 
   const handleFormSubmit = (data: CourseFormData) => {
     setCourseInfo(data);
+    console.log(data);
     setQrCodeKey((prevKey) => prevKey + 1);
   };
 
@@ -53,7 +54,7 @@ const QrCode: React.FC = () => {
           p: 3,
           backgroundColor: 'rgba(250, 250, 250, 0.6)',
           margin: '25px',
-          display: 'flex', // Added to make a flex container
+          display: 'flex',
         }}
       >
         {/* Left side with QR code */}
@@ -63,8 +64,6 @@ const QrCode: React.FC = () => {
           border: '1px solid',
           borderColor: '#bfbfbf',
           borderRadius: '0.5rem',
-          // margin: '0.5rem',
-          // padding: '0.5rem',
         }}>
           <Typography variant="h4">Create attendance QR code</Typography>
         </div>
@@ -86,8 +85,6 @@ const QrCode: React.FC = () => {
           border: '1px solid',
           borderColor: '#bfbfbf',
           borderRadius: '0.5rem',
-          // margin: '0.5rem',
-          // padding: '0.5rem',
         }}>
           <Typography variant="h4">Submitted students</Typography>
         </div>
