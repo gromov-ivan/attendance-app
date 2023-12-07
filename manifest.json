@@ -1,7 +1,7 @@
 {
-  "name": "React PWA",
-  "short_name": "reactpwa",
-  "description": "Starter kit for modern web applications",
+  "name": "Attendance App",
+  "short_name": "attendance-app",
+  "description": "Metropolia University of Applied Sciences Attendance App",
   "theme_color": "#ffffff",
   "icons": [
     {
