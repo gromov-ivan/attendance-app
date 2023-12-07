@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, List, ListItem, ListItemText } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+
+import { Box, Button, List, ListItem, ListItemText, Typography } from '@mui/material';
+
+import ContainedButton from '@/components/ContainedButton/ContainedButton';
+
 import CourseForm, { CourseFormData } from './CourseForm';
 import QrCodeGenerator from './QrCodeGenerator';
 
@@ -47,7 +51,6 @@ const QrCode: React.FC = () => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-
       <Box
         sx={{
           flexGrow: 1,
@@ -59,35 +62,52 @@ const QrCode: React.FC = () => {
       >
         {/* Left side with QR code */}
         <div style={{ flex: 1, padding: '1rem' }}>
-        <div style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.2)',
-          border: '1px solid',
-          borderColor: '#bfbfbf',
-          borderRadius: '0.5rem',
-        }}>
-          <Typography variant="h4">Create attendance QR code</Typography>
-        </div>
-          <CourseForm onSubmit={handleFormSubmit} onDeactivate={handleDeactivateQrCode} />
-          <Button onClick={handleActivateQrCode} disabled={isQrCodeActive}>
-            Create QR Code
-          </Button>
-          <Button onClick={handleDeactivateQrCode} disabled={!isQrCodeActive}>
-            Deactivate QR Code
-          </Button>
-          {isQrCodeActive && <QrCodeGenerator key={qrCodeKey} courseName={courseInfo.courseName} date={courseInfo.date} />}
+          <div
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              border: '1px solid',
+              borderColor: '#bfbfbf',
+              borderRadius: '0.5rem',
+            }}
+          >
+            <Typography variant="h4">Create attendance QR code</Typography>
           </div>
-
-
-          {/* Display student count and names */}
-          <div style={{ flex: 1, padding: '1rem', marginLeft: '1rem' }}>
-          <div style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.2)',
-          border: '1px solid',
-          borderColor: '#bfbfbf',
-          borderRadius: '0.5rem',
-        }}>
-          <Typography variant="h4">Submitted students</Typography>
+          <CourseForm onSubmit={handleFormSubmit} onDeactivate={handleDeactivateQrCode} />
+          <ContainedButton
+            onClick={handleActivateQrCode}
+            disabled={isQrCodeActive}
+            sx={{ marginTop: '1rem' }}
+          >
+            Create QR Code
+          </ContainedButton>
+          <ContainedButton
+            onClick={handleDeactivateQrCode}
+            disabled={!isQrCodeActive}
+            sx={{ marginTop: '1rem', marginLeft: '1rem' }}
+          >
+            Deactivate QR Code
+          </ContainedButton>
+          {isQrCodeActive && (
+            <QrCodeGenerator
+              key={qrCodeKey}
+              courseName={courseInfo.courseName}
+              date={courseInfo.date}
+            />
+          )}
         </div>
+
+        {/* Display student count and names */}
+        <div style={{ flex: 1, padding: '1rem', marginLeft: '1rem' }}>
+          <div
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              border: '1px solid',
+              borderColor: '#bfbfbf',
+              borderRadius: '0.5rem',
+            }}
+          >
+            <Typography variant="h4">Submitted students</Typography>
+          </div>
           <Box mt={2}>
             <Typography variant="h6">Student Count: {studentCount}</Typography>
             <List>

@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 
+import ContainedButton from '@/components/ContainedButton/ContainedButton';
+
 import { supabase } from '../../supabaseClient';
 
 function Login() {
@@ -71,25 +73,15 @@ function Login() {
         fullWidth
         required
       />
-      <Button
-        variant="contained"
+      <ContainedButton
         type="submit"
+        sx={{ mt: '1.5rem', mb: '8px' }}
         onClick={handleLogin}
-        sx={{
-          mt: '1.5rem',
-          mb: '8px',
-          height: '38.4px',
-          borderRadius: '0.5rem',
-          textTransform: 'none',
-          fontWeight: 400,
-          fontSize: '14px',
-        }}
         disabled={loading}
-        disableElevation
         fullWidth
       >
         Log in
-      </Button>
+      </ContainedButton>
       {error && (
         <Box
           sx={{

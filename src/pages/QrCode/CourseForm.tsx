@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+
 import { Typography } from '@mui/material';
 
 export interface CourseFormData {
@@ -22,13 +23,13 @@ const CourseForm: React.FC<CourseFormProps> = ({ onSubmit, onDeactivate }) => {
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <label>
-      <Typography variant="h6">Lesson: </Typography>
+        <Typography variant="h6">Lesson: </Typography>
         <input {...register('courseName')} />
       </label>
       <br />
       <br />
       <label>
-      <Typography variant="h6">Date: </Typography>
+        <Typography variant="h6">Date: </Typography>
         <input type="date" {...register('date')} />
       </label>
     </form>
