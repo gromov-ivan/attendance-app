@@ -34,6 +34,11 @@ const routes: Routes = {
     title: 'Settings',
     icon: SettingsIcon,
   },
+  [Pages.StudentForm]: {
+    component: asyncComponentLoader(() => import('@/pages/StudentForm/StudentFormPage')),
+    path: '/student-form',
+    title: 'Student Form',
+  },
 };
 
 export default routes;

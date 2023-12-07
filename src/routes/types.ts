@@ -9,7 +9,7 @@ enum Pages {
   QrCode,
   Page3,
   //Page5,
-  // StudentForm,
+  StudentForm,
 }
 
 interface CourseFormProps {

@@ -11,8 +11,8 @@ const QrCodeGenerator: React.FC<QrCodeGeneratorProps> = ({ courseName, date }) =
   const [qrCodeData, setQrCodeData] = useState<string>('');
 
   useEffect(() => {
-    // Generate QR code data based on courseName and date
     const newData = `${courseName}-${date}`;
+    console.log('QR Code Data:', newData)
     setQrCodeData(newData);
   }, [courseName, date]);
 

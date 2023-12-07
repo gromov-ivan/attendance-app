@@ -1,35 +1,33 @@
-import React, { useState } from 'react';
+// StudentForm.tsx
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import Button from '@mui/material/Button';
 
-interface StudentFormProps {
-  qrCodeData: { name: string; date: string };
-  onSubmit: (studentNumber: string) => void;
+export interface StudentFormData {
+  studentNumber: string;
 }
 
-const StudentForm: React.FC<StudentFormProps> = ({ qrCodeData, onSubmit }) => {
-  const [studentNumber, setStudentNumber] = useState('');
+interface StudentFormProps {
+  onSubmit: (data: StudentFormData) => void;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(studentNumber);
+const StudentForm: React.FC<StudentFormProps> = ({ onSubmit }) => {
+  const { register, handleSubmit } = useForm<StudentFormData>();
+
+  const handleFormSubmit = (data: StudentFormData) => {
+    // Call the external onSubmit function with the form data
+    onSubmit(data);
   };
 
   return (
-    <div>
-      <p>Class: {qrCodeData.name}</p>
-      <p>Date: {qrCodeData.date}</p>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Student Number:
-          <input
-            type="text"
-            name="studentNumber"
-            value={studentNumber}
-            onChange={(e) => setStudentNumber(e.target.value)}
-          />
-        </label>
-        <button type="submit">Submit Form</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <label>
+        Student Number:
+        <input {...register('studentNumber')} />
+      </label>
+      <br />
+      <Button type="submit">Submit Form</Button>
+    </form>
   );
 };
 
