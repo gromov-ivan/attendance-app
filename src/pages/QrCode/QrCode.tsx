@@ -6,8 +6,32 @@ import ContainedButton from '@/components/ContainedButton/ContainedButton';
 
 import CourseForm, { CourseFormData } from './CourseForm';
 import QrCodeGenerator from './QrCodeGenerator';
+import { useNavigate } from 'react-router-dom';
+
+// Function to simulate activating the QR code on the server
+const activateQrCodeOnServer = async () => {
+  // Simulate an API call to activate the QR code on the server
+  // Add any logic or delay here as needed
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 1000); // Simulate a 1-second delay
+  });
+};
+
+// Function to simulate deactivating the QR code on the server
+const deactivateQrCodeOnServer = async () => {
+  // Simulate an API call to deactivate the QR code on the server
+  // Add any logic or delay here as needed
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 1000); // Simulate a 1-second delay
+  });
+};
 
 const QrCode: React.FC = () => {
+  const navigate = useNavigate();
   const [courseInfo, setCourseInfo] = useState<CourseFormData>({ courseName: '', date: '' });
   const [qrCodeKey, setQrCodeKey] = useState<number>(0);
   const [isQrCodeActive, setIsQrCodeActive] = useState<boolean>(false);
@@ -28,13 +52,20 @@ const QrCode: React.FC = () => {
     return () => clearInterval(intervalId);
   }, [isQrCodeActive]);
 
-  const handleFormSubmit = (data: CourseFormData) => {
+  const handleFormSubmit = async (data: CourseFormData) => {
     setCourseInfo(data);
     console.log(data);
+
+    // Activate the QR code on the server, simulated API call
+    await activateQrCodeOnServer();
+
     setQrCodeKey((prevKey) => prevKey + 1);
   };
 
-  const handleDeactivateQrCode = () => {
+  const handleDeactivateQrCode = async () => {
+    // Deactivate the QR code on the server, simulated API call
+    await deactivateQrCodeOnServer();
+
     setIsQrCodeActive(false);
   };
 
@@ -43,10 +74,15 @@ const QrCode: React.FC = () => {
   };
 
   const handleStudentSubmit = () => {
-    // Placeholder names (replace with actual names from the API later)
+    // Placeholder names, replace with actual names from the API later
     const newStudentNames = [...studentNames, `Student ${studentCount + 1}`];
     setStudentNames(newStudentNames);
     setStudentCount(studentCount + 1);
+  };
+
+  const handleRedirectToStudentForm = () => {
+    // Redirect to Student Form page with lesson information
+    navigate(`/student-form/${courseInfo.courseName}/${courseInfo.date}`);
   };
 
   return (
@@ -123,6 +159,10 @@ const QrCode: React.FC = () => {
           <Button onClick={handleStudentSubmit} disabled={!isQrCodeActive}>
             Simulate Student Submission
           </Button>
+          {/* Button to redirect to the Student Form page */}
+      <Button onClick={handleRedirectToStudentForm} disabled={!isQrCodeActive}>
+        Go to Student Form
+      </Button>
         </div>
       </Box>
     </Box>
