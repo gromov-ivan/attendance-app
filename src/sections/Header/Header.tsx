@@ -17,7 +17,7 @@ import { title } from '@/config';
 import useHotKeysDialog from '@/store/hotkeys';
 import useNotifications from '@/store/notifications';
 import useSidebar from '@/store/sidebar';
-import { logout } from '@/utils/handleLogout';
+import { useLogout } from '@/utils/handleLogout';
 
 import { HotKeysButton } from './styled';
 
@@ -25,6 +25,12 @@ function Header() {
   const [, sidebarActions] = useSidebar();
   const [, notificationsActions] = useNotifications();
   const [, hotKeysDialogActions] = useHotKeysDialog();
+
+  const logout = useLogout();
+
+  const handleLogoutClick = async () => {
+    await logout();
+  };
 
   function showNotification() {
     notificationsActions.push({
@@ -41,7 +47,12 @@ function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar color="transparent" elevation={2} sx={{ borderRadius: '0.5rem' }} position="static">
+      <AppBar
+        color="transparent"
+        elevation={1}
+        sx={{ borderRadius: '0 0 1rem 1rem', boxShadow: '0 0 5px rgba(0,0,0,0.5)' }}
+        position="static"
+      >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <FlexBox sx={{ alignItems: 'center' }}>
             <IconButton
@@ -79,7 +90,7 @@ function Header() {
             </Tooltip>
             <Divider orientation="vertical" flexItem />
             <Tooltip TransitionComponent={Fade} title="Log Out" arrow>
-              <IconButton color="primary" size="large" component="a" onClick={logout}>
+              <IconButton color="primary" size="large" component="a" onClick={handleLogoutClick}>
                 <LogoutOutlinedIcon />
               </IconButton>
             </Tooltip>

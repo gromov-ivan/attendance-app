@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Session } from '@supabase/supabase-js';
+import { CssBaseline } from '@mui/material';
 
 import { withErrorHandler } from '@/error-handling';
 import AppErrorBoundaryFallback from '@/error-handling/fallbacks/App';
@@ -12,50 +11,32 @@ import Sidebar from '@/sections/Sidebar';
 
 import Pages from './routes/Pages';
 import HotKeys from './sections/HotKeys';
-import { supabase } from './supabaseClient';
+import { UserProvider, useUser } from './store/user/UserContext';
 
 function App() {
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      setSession(data?.session);
-      setLoading(false);
-    };
-
-    fetchSession();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription?.unsubscribe();
-  }, []);
-
-  if (loading) {
-    return null;
-  }
-
   return (
-    <React.Fragment>
-      <Notifications />
-      <SW />
+    <UserProvider>
       <BrowserRouter>
-        {session && (
-          <>
-            <HotKeys />
-            <Header />
-            <Sidebar />
-          </>
-        )}
-        <Pages session={session} />
+        <CssBaseline />
+        <Notifications />
+        <SW />
+        <MainContent />
       </BrowserRouter>
-    </React.Fragment>
+    </UserProvider>
   );
 }
+
+const MainContent = () => {
+  const { session } = useUser();
+
+  return (
+    <>
+      {session && <HotKeys />}
+      {session && <Header />}
+      {session && <Sidebar />}
+      <Pages />
+    </>
+  );
+};
 
 export default withErrorHandler(App, AppErrorBoundaryFallback);
