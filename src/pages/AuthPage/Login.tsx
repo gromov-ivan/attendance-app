@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 
 import ContainedButton from '@/components/ContainedButton/ContainedButton';
 
@@ -47,7 +47,7 @@ function Login() {
       <Typography
         sx={{ fontSize: '1rem', fontWeight: 400, marginBottom: '1rem', maxWidth: '340px' }}
       >
-        <span style={{ fontWeight: 600, textDecoration: 'underline' }}>Improtant</span>
+        <span style={{ fontWeight: 600, textDecoration: 'underline' }}>Important</span>
         <span style={{ fontWeight: 600 }}>:</span> Please use your OMA Metropolia username, email
         address, and password
       </Typography>

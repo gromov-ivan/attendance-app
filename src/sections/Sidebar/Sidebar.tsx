@@ -8,11 +8,16 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
-import routes from '@/routes';
+import { studentRoutes, teacherRoutes } from '@/routes';
 import useSidebar from '@/store/sidebar';
+import { useUser } from '@/store/user/UserContext';
 
 function Sidebar() {
   const [isSidebarOpen, sidebarActions] = useSidebar();
+  const { userRole } = useUser();
+
+  const roleRoutes = userRole === 'teacher' ? teacherRoutes : studentRoutes;
+  const basePath = userRole === 'teacher' ? '/teacher' : '/student';
 
   return (
     <SwipeableDrawer
@@ -24,16 +29,18 @@ function Sidebar() {
       swipeAreaWidth={30}
     >
       <List sx={{ width: 250, pt: (theme) => `${theme.mixins.toolbar.minHeight}px` }}>
-        {Object.values(routes)
-          .filter((route) => route.title)
-          .map(({ path, title, icon: Icon }) => (
-            <ListItem sx={{ p: 0 }} key={path}>
-              <ListItemButton component={Link} to={path as string} onClick={sidebarActions.close}>
-                <ListItemIcon>{Icon ? <Icon /> : <DefaultIcon />}</ListItemIcon>
-                <ListItemText>{title}</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          ))}
+        {Object.values(roleRoutes).map(({ path, title, icon: Icon }) => (
+          <ListItem key={path} disablePadding>
+            <ListItemButton
+              component={Link}
+              to={`${basePath}${path}`}
+              onClick={sidebarActions.close}
+            >
+              <ListItemIcon>{Icon ? <Icon /> : <DefaultIcon />}</ListItemIcon>
+              <ListItemText primary={title} />
+            </ListItemButton>
+          </ListItem>
+        ))}
       </List>
     </SwipeableDrawer>
   );
