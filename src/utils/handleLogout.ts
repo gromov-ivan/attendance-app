@@ -1,9 +1,19 @@
+import { useNavigate } from 'react-router-dom';
+
 import { supabase } from '../supabaseClient';
 
-export const logout = async () => {
-  const { error } = await supabase.auth.signOut();
+export const useLogout = () => {
+  const navigate = useNavigate();
 
-  if (error) {
-    console.error('Logout failed:', error.message);
-  }
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error('Logout failed:', error.message);
+    } else {
+      navigate('/');
+    }
+  };
+
+  return logout;
 };

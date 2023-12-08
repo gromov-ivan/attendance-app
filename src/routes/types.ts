@@ -1,27 +1,10 @@
 import { FC } from 'react';
-import { PathRouteProps } from 'react-router-dom';
 
 import type { SvgIconProps } from '@mui/material/SvgIcon';
-
-enum Pages {
-  HomePage,
-  Page1,
-  QrCode,
-  Page3,
-  //Page5,
-  StudentForm,
-}
 
 interface CourseFormProps {
   setLessonData: React.Dispatch<React.SetStateAction<{ name: string; date: string }>>;
 }
-
-type NestedRoute = {
-  component: FC;
-  path: string;
-  title: string;
-  icon?: FC<SvgIconProps>;
-};
 
 interface QrCodeGeneratorProps {
   lessonData: { name: string; date: string };
@@ -42,14 +25,18 @@ interface StudentFormProps {
   lessonData: { name: string; date: string };
 }
 
-type PathRouteCustomProps = {
-  title?: string;
+interface RouteDefinition {
+  path: string;
+  title: string;
   component: FC;
-  icon?: FC<SvgIconProps>;
-  routes?: NestedRoute[];
-};
+  icon: FC<SvgIconProps>;
+}
 
-type Routes = Record<Pages, PathRouteProps & PathRouteCustomProps>;
+export interface SidebarLink {
+  path: string;
+  component: FC;
+  title: string;
+  icon: FC;
+}
 
-export type { Routes };
-export { Pages };
+export type Routes = Record<string, RouteDefinition>;

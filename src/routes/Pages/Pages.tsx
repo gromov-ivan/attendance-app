@@ -1,46 +1,39 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 
-import { Session } from '@supabase/supabase-js';
-
-import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import AuthPage from '@/pages/AuthPage';
-import NotFound from '@/pages/NotFound';
+import { useUser } from '@/store/user/UserContext';
 
-import routes from '..';
+import { studentRoutes, teacherRoutes } from '..';
 import { getPageHeight } from './utils';
 
-type PagesProps = {
-  session: Session | null;
-};
+function Pages() {
+  const { userRole, loading, session } = useUser();
 
-function Pages({ session }: PagesProps) {
+  if (loading) {
+    return null;
+  }
+
+  if (!session) {
+    return <AuthPage />;
+  }
+
+  if (session && !userRole) {
+    return null;
+  }
+
+  const basePath = `/${userRole}`;
+  const routes = userRole === 'teacher' ? teacherRoutes : studentRoutes;
+
   return (
     <Box sx={{ height: (theme) => getPageHeight(theme) }}>
       <Routes>
-        {session ? (
-          <>
-            {Object.values(routes).map(({ path, component: Component }) => (
-              <Route
-                key={path}
-                path={path}
-                element={
-                  <ProtectedRoute session={session}>
-                    <Component />
-                  </ProtectedRoute>
-                }
-              />
-            ))}
-            <Route path="/" element={<Navigate to="/home" replace />} />
-            <Route path="*" element={<NotFound />} />
-          </>
-        ) : (
-          <>
-            <Route path="/" element={<AuthPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </>
-        )}
+        {Object.values(routes).map(({ path, component: Component }) => (
+          <Route key={path} path={`${basePath}${path}`} element={<Component />} />
+        ))}
+        <Route path="/" element={<Navigate replace to={`${basePath}/home`} />} />
+        <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Box>
   );
