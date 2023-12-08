@@ -1,32 +1,25 @@
-// StudentForm.tsx
+// Import necessary components and modules
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '@mui/material/Button';
 
-export interface StudentFormData {
-  studentNumber: string;
-}
+// StudentForm component
+const StudentForm: React.FC<{ course: string; date: string }> = ({ course, date }) => {
+  const { register, handleSubmit } = useForm();
 
-interface StudentFormProps {
-  onSubmit: (data: StudentFormData) => void;
-}
-
-const StudentForm: React.FC<StudentFormProps> = ({ onSubmit }) => {
-  const { register, handleSubmit } = useForm<StudentFormData>();
-
-  const handleFormSubmit = (data: StudentFormData) => {
-    // Call the external onSubmit function with the form data
-    onSubmit(data);
+  // Handle form submission (you need to implement this function)
+  const onSubmit = (data: any) => {
+    // Send the student number to the server or update state as needed
+    console.log('Student Number Submitted:', data.studentNumber);
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <label>
         Student Number:
-        <input {...register('studentNumber')} />
+        <input {...register('studentNumber', { required: true })} />
       </label>
       <br />
-      <Button type="submit">Submit Form</Button>
+      <button type="submit">Submit</button>
     </form>
   );
 };
