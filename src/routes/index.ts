@@ -4,9 +4,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-import CourseForm from '@/pages/QrCode/CourseForm';
-import QrCodeGenerator from '@/pages/QrCode/QrCodeGenerator';
-import StudentFormPage from '@/pages/StudentForm/StudentFormPage';
 import asyncComponentLoader from '@/utils/loader';
 
 import { Routes, SidebarLink } from './types';
@@ -21,7 +18,7 @@ export const teacherRoutes: Routes = {
     icon: HomeIcon,
   },
   AttendanceList: {
-    component: asyncComponentLoader(() => import('@/pages/Page1')),
+    component: asyncComponentLoader(() => import('@/pages/AttendanceList')),
     path: '/attendance-list',
     title: 'Attendance List',
     icon: FormatListBulletedIcon,
@@ -39,7 +36,7 @@ export const teacherRoutes: Routes = {
     icon: Feed,
   },
   Settings: {
-    component: asyncComponentLoader(() => import('@/pages/Page3')),
+    component: asyncComponentLoader(() => import('@/pages/Settings')),
     path: '/settings',
     title: 'Settings',
     icon: SettingsIcon,
@@ -54,7 +51,7 @@ export const studentRoutes: Routes = {
     icon: HomeIcon,
   },
   AttendanceList: {
-    component: asyncComponentLoader(() => import('@/pages/Page1')),
+    component: asyncComponentLoader(() => import('@/pages/AttendanceList')),
     path: '/attendance-list',
     title: 'Attendance List',
     icon: FormatListBulletedIcon,
@@ -72,7 +69,7 @@ export const studentRoutes: Routes = {
     icon: Feed,
   },
   Settings: {
-    component: asyncComponentLoader(() => import('@/pages/Page3')),
+    component: asyncComponentLoader(() => import('@/pages/Settings')),
     path: '/settings',
     title: 'Settings',
     icon: SettingsIcon,

@@ -44,7 +44,7 @@ function HomePage() {
             sx={{ borderRadius: '0.5rem', padding: '0.5rem' }}
           >
             {tabLabels.map((label, index) => (
-              <Tab key={label} label={label} disableTouchRipple/>
+              <Tab key={label} label={label} disableTouchRipple />
             ))}
           </Tabs>
         </AppBar>
