@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { Session } from '@supabase/supabase-js';
 
@@ -6,7 +6,9 @@ import { supabase } from '@/supabaseClient';
 
 type UserContextType = {
   session: Session | null;
+  userId: string | null;
   userRole: string | null;
+  fullName: string | null;
   loading: boolean;
 };
 
@@ -14,17 +16,19 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const useUser = () => {
   const context = useContext(UserContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useUser must be used within a UserProvider');
   }
   return context;
 };
 
-type UserProviderProps = { children: ReactNode };
+type UserProviderProps = { children: React.ReactNode };
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [fullName, setFullName] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,7 +36,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       const { data } = await supabase.auth.getSession();
       setSession(data?.session);
       if (data?.session?.user?.id) {
-        fetchUserRole(data.session.user.id);
+        fetchUserProfile(data.session.user.id);
       } else {
         setLoading(false);
       }
@@ -42,7 +46,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       } = supabase.auth.onAuthStateChange(async (_event, session) => {
         setSession(session);
         if (session?.user?.id) {
-          fetchUserRole(session.user.id);
+          fetchUserProfile(session.user.id);
         } else {
           setUserRole(null);
         }
@@ -53,22 +57,26 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     init();
   }, []);
 
-  const fetchUserRole = async (userId: string) => {
+  const fetchUserProfile = async (userId: string) => {
     const { data, error } = await supabase
       .from('profiles')
-      .select('role')
+      .select('role, full_name')
       .eq('id', userId)
       .single();
 
     if (!error && data) {
+      setUserId(userId);
       setUserRole(data.role);
+      setFullName(data.full_name);
     } else {
-      console.error('Error fetching user role:', error);
+      console.error('Error fetching user profile:', error);
     }
     setLoading(false);
   };
 
   return (
-    <UserContext.Provider value={{ session, userRole, loading }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ session, userId, userRole, fullName, loading }}>
+      {children}
+    </UserContext.Provider>
   );
 };

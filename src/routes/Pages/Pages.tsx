@@ -32,7 +32,7 @@ function Pages() {
         {Object.values(routes).map(({ path, component: Component }) => (
           <Route key={path} path={`${basePath}${path}`} element={<Component />} />
         ))}
-        <Route path="/" element={<Navigate replace to={`${basePath}/home`} />} />
+        <Route path="/" element={<Navigate replace to={`${basePath}/courses`} />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Box>
