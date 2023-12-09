@@ -18,7 +18,7 @@ export const teacherRoutes: Routes = {
     icon: HomeIcon,
   },
   AttendanceList: {
-    component: asyncComponentLoader(() => import('@/pages/AttendanceList')),
+    component: asyncComponentLoader(() => import('@/pages/AttendancePage')),
     path: '/attendance-list',
     title: 'Attendance List',
     icon: FormatListBulletedIcon,
@@ -51,7 +51,7 @@ export const studentRoutes: Routes = {
     icon: HomeIcon,
   },
   AttendanceList: {
-    component: asyncComponentLoader(() => import('@/pages/AttendanceList')),
+    component: asyncComponentLoader(() => import('@/pages/AttendancePage')),
     path: '/attendance-list',
     title: 'Attendance List',
     icon: FormatListBulletedIcon,

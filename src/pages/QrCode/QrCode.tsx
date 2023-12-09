@@ -8,28 +8,6 @@ import CourseForm, { CourseFormData } from './CourseForm';
 import QrCodeGenerator from './QrCodeGenerator';
 import { useNavigate } from 'react-router-dom';
 
-// Function to simulate activating the QR code on the server
-const activateQrCodeOnServer = async () => {
-  // Simulate an API call to activate the QR code on the server
-  // Add any logic or delay here as needed
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000); // Simulate a 1-second delay
-  });
-};
-
-// Function to simulate deactivating the QR code on the server
-const deactivateQrCodeOnServer = async () => {
-  // Simulate an API call to deactivate the QR code on the server
-  // Add any logic or delay here as needed
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000); // Simulate a 1-second delay
-  });
-};
-
 const QrCode: React.FC = () => {
   const navigate = useNavigate();
   const [courseInfo, setCourseInfo] = useState<CourseFormData>({ courseName: '', date: '' });
@@ -52,20 +30,12 @@ const QrCode: React.FC = () => {
     return () => clearInterval(intervalId);
   }, [isQrCodeActive]);
 
-  const handleFormSubmit = async (data: CourseFormData) => {
+  const handleFormSubmit = (data: CourseFormData) => {
     setCourseInfo(data);
-    console.log(data);
-
-    // Activate the QR code on the server, simulated API call
-    await activateQrCodeOnServer();
-
     setQrCodeKey((prevKey) => prevKey + 1);
   };
 
-  const handleDeactivateQrCode = async () => {
-    // Deactivate the QR code on the server, simulated API call
-    await deactivateQrCodeOnServer();
-
+  const handleDeactivateQrCode = () => {
     setIsQrCodeActive(false);
   };
 
@@ -74,7 +44,7 @@ const QrCode: React.FC = () => {
   };
 
   const handleStudentSubmit = () => {
-    // Placeholder names, replace with actual names from the API later
+    // Placeholder names (replace with actual names from the API later)
     const newStudentNames = [...studentNames, `Student ${studentCount + 1}`];
     setStudentNames(newStudentNames);
     setStudentCount(studentCount + 1);
@@ -124,12 +94,12 @@ const QrCode: React.FC = () => {
             Deactivate QR Code
           </ContainedButton>
           {isQrCodeActive && (
-            <QrCodeGenerator
-              key={qrCodeKey}
-              courseName={courseInfo.courseName}
-              date={courseInfo.date}
-            />
-          )}
+          <QrCodeGenerator
+          key={qrCodeKey}
+          courseName={courseInfo.courseName}
+          date={courseInfo.date}
+  />
+)}
         </div>
 
         {/* Display student count and names */}
