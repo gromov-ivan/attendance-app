@@ -20,6 +20,7 @@ import useSidebar from '@/store/sidebar';
 import { useLogout } from '@/utils/handleLogout';
 
 import { HotKeysButton } from './styled';
+import { useUser } from '@/store/user/UserContext';
 
 function Header() {
   const [, sidebarActions] = useSidebar();
@@ -27,6 +28,7 @@ function Header() {
   const [, hotKeysDialogActions] = useHotKeysDialog();
 
   const logout = useLogout();
+  const { fullName } = useUser();
 
   const handleLogoutClick = async () => {
     await logout();
@@ -37,7 +39,7 @@ function Header() {
       options: {
         content: (
           <Alert severity="info">
-            <AlertTitle>Welcome to the Attendance App!</AlertTitle>
+            <AlertTitle>Hello, {fullName}</AlertTitle>
           </Alert>
         ),
         autoHideDuration: 3000,
