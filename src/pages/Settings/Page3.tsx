@@ -3,15 +3,16 @@ import Typography from '@mui/material/Typography';
 import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 
-function Page2() {
+function Page3() {
   return (
     <>
-      <Meta title="page 2" />
+      <Meta title="" />
       <FullSizeCenteredFlexBox>
-        <Typography variant="h3">QR Code</Typography>
+        <Typography variant="h3">Settings</Typography>
       </FullSizeCenteredFlexBox>
     </>
   );
 }
 
-export default Page2;
+
+export default Page3;

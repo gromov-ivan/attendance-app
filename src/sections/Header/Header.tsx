@@ -49,7 +49,6 @@ function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         color="transparent"
-        elevation={1}
         sx={{ borderRadius: '0 0 1rem 1rem', boxShadow: '0 0 5px rgba(0,0,0,0.5)' }}
         position="static"
       >
