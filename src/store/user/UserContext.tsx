@@ -6,6 +6,7 @@ import { supabase } from '@/supabaseClient';
 
 type UserContextType = {
   session: Session | null;
+  userId: string | null;
   userRole: string | null;
   fullName: string | null;
   loading: boolean;
@@ -25,6 +26,7 @@ type UserProviderProps = { children: React.ReactNode };
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
   const [fullName, setFullName] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -63,6 +65,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       .single();
 
     if (!error && data) {
+      setUserId(userId);
       setUserRole(data.role);
       setFullName(data.full_name);
     } else {
@@ -72,7 +75,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ session, userRole, fullName, loading }}>
+    <UserContext.Provider value={{ session, userId, userRole, fullName, loading }}>
       {children}
     </UserContext.Provider>
   );

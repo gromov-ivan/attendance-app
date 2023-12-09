@@ -28,7 +28,7 @@ function AuthPage() {
           borderRadius: '0.5rem',
           boxShadow: '0 0 10px rgba(0,0,0,0.2)',
           padding: '2rem 3rem',
-          marginTop: '2rem',
+          margin: '1rem',
         }}
       >
         {isSigningUp ? (

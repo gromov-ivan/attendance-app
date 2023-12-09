@@ -11,7 +11,7 @@ export default defineConfig({
     react(),
     VitePWA({
       manifest,
-      includeAssets: ['favicon.svg', 'favicon.ico',],
+      includeAssets: ['favicon.svg', 'favicon.ico'],
       // switch to "true" to enable sw on development
       devOptions: {
         enabled: false,

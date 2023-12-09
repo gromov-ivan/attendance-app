@@ -60,6 +60,14 @@ const sharedTheme = {
         },
       },
     },
+    MuiInputLabel: {
+      styleOverrides: {
+        asterisk: {
+          color: "#d32f2f",
+          fontSize: "1.1rem",
+        },
+      },
+    },
   },
 } as ThemeOptions;
 
