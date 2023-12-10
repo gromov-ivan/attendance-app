@@ -2,19 +2,6 @@ import { SELECT_COURSE, FETCH_STUDENT_ATTENDANCE } from '../actions';
 import { Action, SomeState } from '@/store/types';
 import { ThunkAction } from 'redux-thunk';
 
-
-// const someReducer = (state: SomeState, action: Action) => {
-//   switch (action.type) {
-//     case 'SOME_ACTION':
-//       // Now TypeScript knows that action.payload is a valid property
-//       const payloadData = action.payload;
-//       // Rest of your reducer logic
-//       return newState;
-//     default:
-//       return state;
-//   }
-// };
-
 interface AttendanceState {
   selectedCourse: string;
   studentAttendance: Array<{ name: string; attendance: number }>;
