@@ -1,30 +1,51 @@
-// store/reducers/attendanceReducer.ts
-
 import { SELECT_COURSE, FETCH_STUDENT_ATTENDANCE } from '../actions';
+import { Action, SomeState } from '@/store/types';
+import { ThunkAction } from 'redux-thunk';
 
-const initialState = {
+
+// const someReducer = (state: SomeState, action: Action) => {
+//   switch (action.type) {
+//     case 'SOME_ACTION':
+//       // Now TypeScript knows that action.payload is a valid property
+//       const payloadData = action.payload;
+//       // Rest of your reducer logic
+//       return newState;
+//     default:
+//       return state;
+//   }
+// };
+
+interface AttendanceState {
+  selectedCourse: string;
+  studentAttendance: Array<{ name: string; attendance: number }>;
+  lessons: string[];
+}
+
+const initialState: AttendanceState = {
   selectedCourse: '',
-  studentAttendance: [], // Array of students with attendance data
+  studentAttendance: [],
+  lessons: [],
+  courses: [],
 };
 
-const attendanceReducer = (state = initialState, action: any) => {
+const attendanceReducer = (state: AttendanceState = initialState, action: Action): AttendanceState => {
   switch (action.type) {
-    case SELECT_COURSE:
+    case SELECT_COURSE: {
+      const { payload } = action;
       return {
         ...state,
-        selectedCourse: action.payload,
+        selectedCourse: payload,
+        lessons: [], // Reset lessons when course changes
       };
-    case FETCH_STUDENT_ATTENDANCE:
-      // Implement logic to fetch student attendance based on the selected course
-      // For now, I'll return a sample data structure
+    }
+    case FETCH_STUDENT_ATTENDANCE: {
+      const { lessons, studentAttendance } = action.payload;
       return {
         ...state,
-        studentAttendance: [
-          { name: 'Student1', attendance: 90 },
-          { name: 'Student2', attendance: 75 },
-          { name: 'Student3', attendance: 50 },
-        ],
+        lessons,
+        studentAttendance,
       };
+    }
     default:
       return state;
   }

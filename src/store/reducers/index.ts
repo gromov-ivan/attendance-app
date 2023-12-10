@@ -1,12 +1,17 @@
-import { createStore, combineReducers } from 'redux';
-import attendanceReducer from '../reducers/attendanceReducer';
+import { combineReducers } from 'redux';
+import attendanceReducer from './attendanceReducer';
+
+export interface RootState {
+  attendance: {
+    selectedCourse: string;
+  studentAttendance: { name: string; attendance: number; }[];
+  lessons: string[];
+  courses: string[];
+  };
+}
 
 const rootReducer = combineReducers({
   attendance: attendanceReducer,
-  // Add other reducers as needed
 });
 
-const store = createStore(rootReducer);
-
-export default store;
-
+export default rootReducer;

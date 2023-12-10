@@ -1,3 +1,4 @@
+// components/AttendanceTable.tsx
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -37,16 +38,23 @@ const AttendanceTable: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell>Student Name</TableCell>
-              <TableCell>Attendance</TableCell>
+              {lessons.map((lesson) => (
+                <TableCell key={lesson}>{lesson}</TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {studentAttendance.map((student) => (
+          {studentAttendance.map((student) => (
               <TableRow key={student.name}>
                 <TableCell>{student.name}</TableCell>
-                <TableCell style={{ backgroundColor: getAttendanceColor(student.attendance) }}>
-                  {Math.round(student.attendance)}%
-                </TableCell>
+                {lessons.map((lesson) => (
+                  <TableCell
+                    key={lesson}
+                    style={{ backgroundColor: getAttendanceColor(student.attendance[lesson]) }}
+                  >
+                    {Math.round(student.attendance[lesson])}%
+                  </TableCell>
+                ))}
               </TableRow>
             ))}
           </TableBody>
@@ -55,6 +63,5 @@ const AttendanceTable: React.FC = () => {
     </Grid>
   );
 };
-
 
 export default AttendanceTable;

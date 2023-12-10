@@ -6,7 +6,11 @@ export const selectCourse = (courseId: string) => ({
   payload: courseId,
 });
 
-export const fetchStudentAttendance = (courseId: string) => ({
+export const fetchStudentAttendance = (payload: {
+  courseId: string;
+  lessons: string[];
+  studentAttendance: Array<{ name: string; attendance: number }>;
+}) => ({
   type: FETCH_STUDENT_ATTENDANCE,
-  payload: courseId,
+  payload,
 });

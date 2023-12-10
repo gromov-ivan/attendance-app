@@ -1,11 +1,8 @@
-import { createStore, combineReducers } from 'redux';
-import attendanceReducer from './reducers/attendanceReducer';
+// store/index.ts
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from './reducers';
+import { thunk } from 'redux-thunk';
 
-const rootReducer = combineReducers({
-  attendance: attendanceReducer,
-  // Add other reducers as needed
-});
-
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;
