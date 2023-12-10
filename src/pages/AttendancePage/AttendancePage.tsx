@@ -7,7 +7,7 @@ import AttendanceTable from '@/components/AttendanceTable';
 const AttendancePage: React.FC = () => {
   return (
     <Provider store={store}>
-      <div>
+      <div style={{margin: '10px'}}>
         <CourseSelection />
         <AttendanceTable />
       </div>

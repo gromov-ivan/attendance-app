@@ -23,10 +23,6 @@ const attendanceReducer = (state = initialState, action: any) => {
           { name: 'Student1', attendance: 90 },
           { name: 'Student2', attendance: 75 },
           { name: 'Student3', attendance: 50 },
-          { name: 'Student4', attendance: 100 },
-          { name: 'Student5', attendance: 12 },
-          { name: 'Student6', attendance: 47 },
-          { name: 'Student7', attendance: 79 },
         ],
       };
     default:
