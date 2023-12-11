@@ -4,3 +4,8 @@ export type Course = {
   course_group: string;
   status: 'Active' | 'Inactive';
 };
+
+export type TeacherProfile = {
+  id: string;
+  full_name: string;
+};

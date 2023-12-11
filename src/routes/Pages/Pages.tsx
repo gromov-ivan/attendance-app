@@ -24,6 +24,7 @@ function Pages() {
   }
 
   const basePath = `/${userRole}`;
+  const defaultRoute = userRole === 'teacher' ? '/courses' : '/student-form';
   const routes = userRole === 'teacher' ? teacherRoutes : studentRoutes;
 
   return (
@@ -32,7 +33,7 @@ function Pages() {
         {Object.values(routes).map(({ path, component: Component }) => (
           <Route key={path} path={`${basePath}${path}`} element={<Component />} />
         ))}
-        <Route path="/" element={<Navigate replace to={`${basePath}/courses`} />} />
+        <Route path="/" element={<Navigate replace to={`${basePath}${defaultRoute}`} />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Box>
