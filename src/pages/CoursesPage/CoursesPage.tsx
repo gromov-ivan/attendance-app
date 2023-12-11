@@ -6,6 +6,7 @@ import { fetchCourses } from '@/services/courseService';
 import { useUser } from '@/store/user/UserContext';
 
 import { CreateCourseForm } from './CreateCourseForm';
+import { EditCourseForm } from './EditCourseForm';
 import { Course } from './types';
 
 function CoursesPage() {
@@ -42,14 +43,20 @@ function CoursesPage() {
   const selectedCourses = coursesByStatus[tabLabels[selectedTab]];
 
   return (
-    <Grid container spacing={2} sx={{ padding: '1.5rem 1.5rem' }}>
-      <Grid item container xs={12} md={6} sx={{ height: '570px' }}>
+    <Grid container spacing={6} sx={{ padding: '1.5rem' }}>
+      <Grid item container xs={12} md={6} sx={{ alignContent: 'flex-start' }}>
+        {/* Create Course Form*/}
         <CreateCourseForm onCourseAdded={handleCourseAdded} />
+        {/* Edit Course Form*/}
+        <EditCourseForm onCourseUpdated={loadCourses} />
       </Grid>
-      <Grid item container xs={12} md={6} sx={{ height: '570px' }}>
+      <Grid item container xs={12} md={6} sx={{ alignContent: 'flex-start' }}>
         <Grid item xs={12}>
-          <Typography variant="h5" sx={{ marginBottom: '1rem', fontWeight: 500 }}>
+          <Typography variant="h5" sx={{ marginBottom: '0.5rem', fontWeight: 500 }}>
             Your courses
+          </Typography>
+          <Typography sx={{ marginBottom: '1rem'}}>
+            All courses in which you are assigned as an instructor are listed here.
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -60,6 +67,7 @@ function CoursesPage() {
               background: '#fff',
               border: '1px solid #bfbfbf',
               borderRadius: '0.5rem',
+              boxShadow: '0 0 2px rgba(0,0,0,0.2)',
               marginBottom: '1rem',
             }}
           >
@@ -83,13 +91,13 @@ function CoursesPage() {
           spacing={2}
           sx={{
             display: 'flex',
-            border: '1px solid',
-            borderColor: '#bfbfbf',
+            border: '1px solid #bfbfbf',
             borderRadius: '0.5rem',
+            boxShadow: '0 0 2px rgba(0,0,0,0.2)',
             alignContent: 'flex-start',
             padding: '0 1rem 1rem 0',
             margin: '0rem',
-            height: '423px',
+            height: '748px',
             overflow: 'auto',
           }}
         >
@@ -108,6 +116,7 @@ function CoursesPage() {
                     padding: '1rem',
                     border: '1px solid #bfbfbf',
                     borderRadius: '0.5rem',
+                    backgroundColor: '#f2f2f2',
                   }}
                 >
                   <Typography variant="h6">
@@ -119,11 +128,6 @@ function CoursesPage() {
             ))
           )}
         </Grid>
-      </Grid>
-      <Grid item container xs={12}>
-        <Typography variant="h5" sx={{ marginBottom: '1rem', fontWeight: 500 }}>
-          Edit course
-        </Typography>
       </Grid>
     </Grid>
   );

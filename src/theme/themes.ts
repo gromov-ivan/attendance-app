@@ -7,15 +7,13 @@ const sharedTheme = {
   palette: {
     background: {
       default: '#fafafa',
-      paper: '#fff',
+      paper: '#ffffff',
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
-        outlined: {
-
-        },
+        outlined: {},
         contained: {
           color: '#fff',
           backgroundColor: '#ff7433',
@@ -63,8 +61,15 @@ const sharedTheme = {
     MuiInputLabel: {
       styleOverrides: {
         asterisk: {
-          color: "#d32f2f",
-          fontSize: "1.1rem",
+          color: '#d32f2f',
+          fontSize: '1.1rem',
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontWeight: 500,
         },
       },
     },
@@ -80,7 +85,7 @@ const themes: Record<Themes, ThemeOptions> = {
       },
       background: {
         default: '#ffffff',
-        paper: '#f2f2f2',
+        paper: '#ffffff',
       },
       primary: {
         main: '#ff854d',
@@ -102,7 +107,7 @@ const themes: Record<Themes, ThemeOptions> = {
       },
       background: {
         default: '#ffffff',
-        paper: '#f2f2f2',
+        paper: '#ffffff',
       },
       primary: {
         main: '#ff854d',

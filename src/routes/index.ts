@@ -14,7 +14,7 @@ export const teacherRoutes: Routes = {
   Courses: {
     component: asyncComponentLoader(() => import('@/pages/CoursesPage')),
     path: '/courses',
-    title: 'Courses',
+    title: 'Courses Dashboard',
     icon: LibraryBooksIcon,
   },
   AttendanceList: {
@@ -44,24 +44,6 @@ export const teacherRoutes: Routes = {
 };
 
 export const studentRoutes: Routes = {
-  Courses: {
-    component: asyncComponentLoader(() => import('@/pages/CoursesPage')),
-    path: '/courses',
-    title: 'Courses',
-    icon: LibraryBooksIcon,
-  },
-  AttendanceList: {
-    component: asyncComponentLoader(() => import('@/pages/AttendanceList')),
-    path: '/attendance-list',
-    title: 'Attendance List',
-    icon: FormatListBulletedIcon,
-  },
-  QrCode: {
-    component: asyncComponentLoader(() => import('@/pages/QrCode')),
-    path: '/qr-code',
-    title: 'QR Code',
-    icon: QrCode2Icon,
-  },
   StudentForm: {
     component: asyncComponentLoader(() => import('@/pages/StudentForm/StudentFormPage')),
     path: '/student-form',
@@ -87,9 +69,6 @@ export const teacherLinks: SidebarLink[] = [
 ];
 
 export const studentLinks: SidebarLink[] = [
-  studentRoutes.Courses,
-  studentRoutes.AttendanceList,
-  studentRoutes.QrCode,
-  studentRoutes.StudentForm,
+  teacherRoutes.StudentForm,
   studentRoutes.Settings,
 ];
