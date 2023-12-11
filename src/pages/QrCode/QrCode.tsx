@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Box, Button, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 import ContainedButton from '@/components/ContainedButton/ContainedButton';
 
-import CourseForm, { CourseFormData } from './CourseForm';
+import QrCodeForm, { CourseFormData } from './QrCodeForm';
 import QrCodeGenerator from './QrCodeGenerator';
 
 const QrCode: React.FC = () => {
-  const [courseInfo, setCourseInfo] = useState<CourseFormData>({ courseName: '', date: '' });
+  const navigate = useNavigate();
+  const [courseInfo, setCourseInfo] = useState<CourseFormData>({ courseName: '', topicName: '', date: '' });
   const [qrCodeKey, setQrCodeKey] = useState<number>(0);
   const [isQrCodeActive, setIsQrCodeActive] = useState<boolean>(false);
   const [studentCount, setStudentCount] = useState<number>(0);
@@ -30,7 +32,6 @@ const QrCode: React.FC = () => {
 
   const handleFormSubmit = (data: CourseFormData) => {
     setCourseInfo(data);
-    console.log(data);
     setQrCodeKey((prevKey) => prevKey + 1);
   };
 
@@ -49,6 +50,11 @@ const QrCode: React.FC = () => {
     setStudentCount(studentCount + 1);
   };
 
+  const handleRedirectToStudentForm = () => {
+    // Redirect to Student Form page with lesson information
+    navigate(`/student-form/${courseInfo.courseName}/${courseInfo.date}`);
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <Box
@@ -58,6 +64,9 @@ const QrCode: React.FC = () => {
           backgroundColor: 'rgba(250, 250, 250, 0.6)',
           margin: '25px',
           display: 'flex',
+          border: '1px solid #bfbfbf',
+          borderRadius: '0.5rem',
+          boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.2)',
         }}
       >
         {/* Left side with QR code */}
@@ -68,11 +77,13 @@ const QrCode: React.FC = () => {
               border: '1px solid',
               borderColor: '#bfbfbf',
               borderRadius: '0.5rem',
+              padding: '0.5rem',
+              marginBottom: '1rem',
             }}
           >
-            <Typography variant="h4">Create attendance QR code</Typography>
+            <Typography variant="h5">Create attendance QR code</Typography>
           </div>
-          <CourseForm onSubmit={handleFormSubmit} onDeactivate={handleDeactivateQrCode} />
+          <QrCodeForm onSubmit={handleFormSubmit} onDeactivate={handleDeactivateQrCode} />
           <ContainedButton
             onClick={handleActivateQrCode}
             disabled={isQrCodeActive}
@@ -104,9 +115,11 @@ const QrCode: React.FC = () => {
               border: '1px solid',
               borderColor: '#bfbfbf',
               borderRadius: '0.5rem',
+              padding: '0.5rem',
+              marginBottom: '1rem',
             }}
           >
-            <Typography variant="h4">Submitted students</Typography>
+            <Typography variant="h5">Submitted students</Typography>
           </div>
           <Box mt={2}>
             <Typography variant="h6">Student Count: {studentCount}</Typography>
@@ -120,9 +133,17 @@ const QrCode: React.FC = () => {
           </Box>
 
           {/* Button to simulate student form submission */}
-          <Button onClick={handleStudentSubmit} disabled={!isQrCodeActive}>
-            Simulate Student Submission
-          </Button>
+          <ContainedButton
+            onClick={handleStudentSubmit}
+            disabled={!isQrCodeActive}
+            sx={{ marginRight: '1rem' }}
+          >
+            Add the student manually
+          </ContainedButton>
+          {/* Button to redirect to the Student Form page */}
+          <ContainedButton type="submit"onClick={handleRedirectToStudentForm} disabled={!isQrCodeActive}>
+            Go to Student Form
+          </ContainedButton>
         </div>
       </Box>
     </Box>

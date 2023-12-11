@@ -17,23 +17,17 @@ export const teacherRoutes: Routes = {
     title: 'Courses Dashboard',
     icon: LibraryBooksIcon,
   },
-  AttendanceList: {
-    component: asyncComponentLoader(() => import('@/pages/AttendanceList')),
-    path: '/attendance-list',
-    title: 'Attendance List',
-    icon: FormatListBulletedIcon,
-  },
   QrCode: {
     component: asyncComponentLoader(() => import('@/pages/QrCode')),
     path: '/qr-code',
-    title: 'QR Code',
+    title: 'Mark Attendance',
     icon: QrCode2Icon,
   },
-  StudentForm: {
-    component: asyncComponentLoader(() => import('@/pages/StudentForm/StudentFormPage')),
-    path: '/student-form',
-    title: 'Student Form',
-    icon: Feed,
+  AttendanceList: {
+    component: asyncComponentLoader(() => import('@/pages/AttendancePage')),
+    path: '/attendance-list',
+    title: 'Attendance List',
+    icon: FormatListBulletedIcon,
   },
   Settings: {
     component: asyncComponentLoader(() => import('@/pages/Settings')),

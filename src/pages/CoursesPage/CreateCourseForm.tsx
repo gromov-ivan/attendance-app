@@ -42,7 +42,7 @@ export const CreateCourseForm = ({ onCourseAdded }: { onCourseAdded: () => void 
         <Typography variant="h5" sx={{ marginBottom: '0.5rem', fontWeight: 500 }}>
           Create new course
         </Typography>
-        <Typography sx={{ marginBottom: '1rem'}}>
+        <Typography sx={{ marginBottom: '1rem' }}>
           Here you can create a new course. You will be assigned as the teacher of the course.
         </Typography>
         <Grid

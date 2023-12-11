@@ -1,33 +1,35 @@
-// StudentForm.tsx
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '@mui/material/Button';
+import { Button, TextField, Typography, Box, Paper } from '@mui/material';
 
-export interface StudentFormData {
-  studentNumber: string;
-}
+// StudentForm component
+const StudentForm: React.FC<{ course: string; date: string }> = ({ course, date }) => {
+  const { register, handleSubmit, formState } = useForm();
 
-interface StudentFormProps {
-  onSubmit: (data: StudentFormData) => void;
-}
-
-const StudentForm: React.FC<StudentFormProps> = ({ onSubmit }) => {
-  const { register, handleSubmit } = useForm<StudentFormData>();
-
-  const handleFormSubmit = (data: StudentFormData) => {
-    // Call the external onSubmit function with the form data
-    onSubmit(data);
+  // Handle form submission
+  const onSubmit = (data: any) => {
+    // Send the student number to the server or update state as needed
+    console.log('Student Number Submitted:', data.studentNumber);
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <label>
-        Student Number:
-        <input {...register('studentNumber')} />
-      </label>
-      <br />
-      <Button type="submit">Submit Form</Button>
-    </form>
+    <Paper elevation={3} style={{ padding: '16px', margin: '16px' }}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* <Typography variant="h5">Student Form for {course}</Typography> */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <TextField
+            label="Student Number"
+            variant="outlined"
+            {...register('studentNumber', { required: true })}
+            error={!!formState.errors.studentNumber}
+            helperText={formState.errors.studentNumber && 'Student number is required'}
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Submit
+          </Button>
+        </Box>
+      </form>
+    </Paper>
   );
 };
 

@@ -113,6 +113,20 @@ export async function fetchCourseTopics(course_id: string): Promise<string> {
   return data.map((topic) => topic.topic_name).join('; ');
 }
 
+export async function fetchArrayCourseTopics(course_id: string): Promise<string[]> {
+  const { data, error } = await supabase
+    .from('course_topics')
+    .select('topic_name')
+    .eq('course_id', course_id);
+
+  if (error) {
+    console.error('Error fetching course topics:', error);
+    return [];
+  }
+
+  return data.map((topic) => topic.topic_name);
+}
+
 export async function updateCourseTopics(course_id: string, topics: string) {
   await supabase.from('course_topics').delete().eq('course_id', course_id);
 
