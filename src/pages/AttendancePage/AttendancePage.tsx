@@ -1,17 +1,14 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import store from '@/store'
-import CourseSelection from '@/components/CourseSelection';
-import AttendanceTable from '@/components/AttendanceTable';
+
+import AttendanceTable from './AttendanceTable';
+import CourseSelection from './CourseSelection';
 
 const AttendancePage: React.FC = () => {
   return (
-    <Provider store={store}>
-      <div style={{margin: '10px'}}>
-        <CourseSelection />
-        <AttendanceTable />
-      </div>
-    </Provider>
+    <div style={{ margin: '10px' }}>
+      <CourseSelection />
+      <AttendanceTable />
+    </div>
   );
 };
 

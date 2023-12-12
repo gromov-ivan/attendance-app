@@ -43,7 +43,7 @@ export const CreateCourseForm = ({ onCourseAdded }: { onCourseAdded: () => void 
           Create new course
         </Typography>
         <Typography sx={{ marginBottom: '1rem' }}>
-          Here you can create a new course. You will be assigned as the teacher of the course.
+          • Here you can create a new course. You will be assigned as the teacher of the course.
         </Typography>
         <Grid
           item
@@ -92,7 +92,6 @@ export const CreateCourseForm = ({ onCourseAdded }: { onCourseAdded: () => void 
           </Grid>
           <Grid item xs={12}>
             <ContainedButton
-              type="submit"
               variant="contained"
               onClick={handleCreateCourse}
               //disabled={isAdding}

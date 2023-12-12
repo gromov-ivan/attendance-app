@@ -1,3 +1,3 @@
-import QrCode from './QrCode';
+import QrCodePage from './QrCodePage';
 
-export default QrCode;
+export default QrCodePage;

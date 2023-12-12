@@ -23,7 +23,7 @@ const CourseSelection: React.FC = () => {
       <Grid item container alignItems="center" spacing={2} sx={{ height: '50px' }}>
         <Grid item xs={12}>
           <Typography variant="h5" sx={{ fontWeight: 500 }}>
-            Choose the course to see the attendace data
+            Select a course to view attendance data
           </Typography>
         </Grid>
         <Grid item xs={6}>
