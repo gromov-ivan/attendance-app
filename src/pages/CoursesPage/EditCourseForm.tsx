@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 import {
   Autocomplete,
+  CircularProgress,
   FormControl,
   FormHelperText,
   Grid,
@@ -12,9 +14,10 @@ import {
   Typography,
 } from '@mui/material';
 
+import { differenceBy } from 'lodash';
+
 import ContainedButton from '@/components/ContainedButton/ContainedButton';
 import {
-  assignTeachersToCourse,
   fetchCourseTeachers,
   fetchCourseTopics,
   fetchCreatedCourses,
@@ -27,6 +30,20 @@ import { supabase } from '@/supabaseClient';
 
 import { Course, TeacherProfile } from './types';
 
+const useFetchCoursesAndTeachers = (userId: any, setCourses: any, setTeachers: any) => {
+  useEffect(() => {
+    async function loadData() {
+      if (userId) {
+        const createdCourses = await fetchCreatedCourses(userId);
+        const allTeachers = await fetchTeachers();
+        setCourses(createdCourses);
+        setTeachers(allTeachers.filter((teacher) => teacher.id !== userId));
+      }
+    }
+    loadData();
+  }, [userId, setCourses, setTeachers]);
+};
+
 export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => void }) => {
   const { userId } = useUser();
   const [courses, setCourses] = useState<Course[]>([]);
@@ -36,17 +53,18 @@ export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => voi
   const [status, setStatus] = useState<'Active' | 'Inactive'>('Active');
   const [courseTopics, setCourseTopics] = useState('');
 
+  // Select a course Autocomplete
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [autocompleteCourse, setAutocompleteCourse] = useState<Course | null>(null);
+  const [courseCodeInput, setCourseCodeInput] = useState('');
+  const [courseGroupInput, setCourseGroupInput] = useState('');
+
+  useFetchCoursesAndTeachers(userId, setCourses, setTeachers);
+
   useEffect(() => {
-    const loadData = async () => {
-      if (userId) {
-        const createdCourses = await fetchCreatedCourses(userId);
-        setCourses(createdCourses);
-        const allTeachers = await fetchTeachers();
-        setTeachers(allTeachers.filter((teacher) => teacher.id !== userId));
-      }
-    };
-    loadData();
-  }, [userId]);
+    setAutocompleteCourse(selectedCourse);
+  }, [selectedCourse]);
 
   useEffect(() => {
     if (selectedCourse) {
@@ -84,11 +102,31 @@ export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => voi
     fetchTopics();
   }, [selectedCourse]);
 
+  useEffect(() => {
+    if (selectedCourse) {
+      setCourseCodeInput(selectedCourse.course_code);
+      setCourseGroupInput(selectedCourse.course_group);
+    }
+  }, [selectedCourse]);
+
   const handleAutocompleteOpen = async () => {
-    if (userId) {
+    if (!open && userId) {
+      setOpen(true);
+      setLoading(true);
       const createdCourses = await fetchCreatedCourses(userId);
       setCourses(createdCourses);
+      setLoading(false);
     }
+  };
+
+  const handleCourseChange = (event: any, newValue: Course | null) => {
+    setSelectedCourse(newValue);
+    setAutocompleteCourse(newValue);
+  };
+
+  const getOptionLabel = (course: Course) => {
+    const foundCourse = courses.find((c) => c.id === course.id) || course;
+    return `${foundCourse.course_code} | ${foundCourse.course_group}`;
   };
 
   const handleSubmit = async () => {
@@ -97,19 +135,26 @@ export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => voi
       return;
     }
 
-    if (selectedTeachers.length > 0) {
-      const teacher_ids = selectedTeachers.map((teacher) => teacher.id);
-      await assignTeachersToCourse(selectedCourse.id, teacher_ids);
-    }
+    const existingTeachers = await fetchCourseTeachers(selectedCourse.id);
+    const teachersToRemove = differenceBy(existingTeachers, selectedTeachers, 'id');
+    const teachersToAdd = differenceBy(selectedTeachers, existingTeachers, 'id');
 
-    const selectedTeacherIds = selectedTeachers.map((t) => t.id);
+    await Promise.all(
+      teachersToRemove.map((teacher) =>
+        supabase
+          .from('course_teachers')
+          .delete()
+          .match({ course_id: selectedCourse.id, teacher_id: teacher.id }),
+      ),
+    );
 
-    await supabase.from('course_teachers').delete().eq('course_id', selectedCourse.id);
-    await supabase
-      .from('course_teachers')
-      .insert(
-        selectedTeacherIds.map((teacher_id) => ({ course_id: selectedCourse.id, teacher_id })),
-      );
+    await Promise.all(
+      teachersToAdd.map((teacher) =>
+        supabase
+          .from('course_teachers')
+          .insert({ course_id: selectedCourse.id, teacher_id: teacher.id }),
+      ),
+    );
 
     if (!courseTopics.trim() || (courseTopics.split(';').length && !courseTopics.endsWith(';'))) {
       await updateCourseTopics(selectedCourse.id, courseTopics.trim());
@@ -120,12 +165,7 @@ export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => voi
       }
     }
 
-    await updateCourse(
-      selectedCourse.id,
-      selectedCourse.course_code,
-      selectedCourse.course_group,
-      status,
-    );
+    await updateCourse(selectedCourse.id, courseCodeInput, courseGroupInput, status);
 
     alert('Course updated successfully');
     onCourseUpdated();
@@ -137,10 +177,10 @@ export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => voi
         <Typography variant="h5" sx={{ fontWeight: 500, marginBottom: '0.5rem' }}>
           Edit your courses
         </Typography>
-        <Typography>Here you can update the courses you have created.</Typography>
-        <Typography>You can add course topics and add other teachers to the course.</Typography>
+        <Typography>• Here you can update the courses you have created.</Typography>
+        <Typography>• You can add course topics and add other teachers to the course.</Typography>
         <Typography sx={{ marginBottom: '1rem' }}>
-          When you add teachers to the course, they will be able to see the course in their
+          • When you add teachers to the course, they will be able to see the course in their
           dashboard.
         </Typography>
         <Grid
@@ -163,15 +203,31 @@ export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => voi
           <Grid item xs={12}>
             <Autocomplete
               options={courses}
-              getOptionLabel={(option) => `${option.course_code} | ${option.course_group}`}
-              onChange={(event, newValue) => setSelectedCourse(newValue)}
-              value={selectedCourse}
+              open={open}
               onOpen={handleAutocompleteOpen}
+              onClose={() => {
+                setOpen(false);
+                setCourses([]);
+              }}
+              onChange={handleCourseChange}
+              value={autocompleteCourse}
+              loading={loading}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              getOptionLabel={getOptionLabel}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   label="Select a course"
                   variant="outlined"
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <React.Fragment>
+                        {loading ? <CircularProgress color="primary" size={20} /> : null}
+                        {params.InputProps.endAdornment}
+                      </React.Fragment>
+                    ),
+                  }}
                   sx={{
                     '& .MuiInputBase-root': {
                       backgroundColor: '#fff',
@@ -192,10 +248,8 @@ export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => voi
                   label="Course Code"
                   variant="outlined"
                   type="text"
-                  value={selectedCourse.course_code}
-                  onChange={(e) =>
-                    setSelectedCourse({ ...selectedCourse, course_code: e.target.value })
-                  }
+                  value={courseCodeInput}
+                  onChange={(e) => setCourseCodeInput(e.target.value)}
                   InputProps={{ sx: { borderRadius: '0.5rem' } }}
                   size="small"
                   fullWidth
@@ -207,10 +261,8 @@ export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => voi
                   label="Course Group"
                   variant="outlined"
                   type="text"
-                  value={selectedCourse.course_group}
-                  onChange={(e) =>
-                    setSelectedCourse({ ...selectedCourse, course_group: e.target.value })
-                  }
+                  value={courseGroupInput}
+                  onChange={(e) => setCourseGroupInput(e.target.value)}
                   InputProps={{ sx: { borderRadius: '0.5rem' } }}
                   size="small"
                   fullWidth
@@ -273,16 +325,16 @@ export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => voi
                 />
               </Grid>
               <Grid item xs={12}>
-              <Autocomplete
-                multiple
-                id="teachers-autocomplete"
-                options={teachers}
-                getOptionLabel={(option) => option.full_name}
-                value={selectedTeachers}
-                onChange={(event, newValue) => {
-                  setSelectedTeachers(newValue);
-                }}
-                renderInput={(params) => (
+                <Autocomplete
+                  multiple
+                  id="teachers-autocomplete"
+                  options={teachers}
+                  getOptionLabel={(option) => option.full_name}
+                  value={selectedTeachers}
+                  onChange={(event, newValue) => {
+                    setSelectedTeachers(newValue);
+                  }}
+                  renderInput={(params) => (
                     <TextField
                       {...params}
                       label="Additional teachers in the course"

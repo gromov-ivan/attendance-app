@@ -1,6 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+
 import {
+  Grid,
   Paper,
   Table,
   TableBody,
@@ -9,15 +10,9 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Grid,
 } from '@mui/material';
-import { RootState } from '@/store/reducers';
 
 const AttendanceTable: React.FC = () => {
-  const selectedCourse = useSelector((state: RootState) => state.attendance.selectedCourse);
-  const studentAttendance = useSelector((state: RootState) => state.attendance.studentAttendance);
-  const lessons = useSelector((state: RootState) => state.attendance.lessons);
-
   const getAttendanceColor = (percentage: number) => {
     const saturation = 100;
     const lightness = 50;
@@ -31,31 +26,18 @@ const AttendanceTable: React.FC = () => {
     <Grid container spacing={2} sx={{ padding: '1.5rem' }}>
       <TableContainer component={Paper} sx={{ width: '100%', marginBottom: '1rem' }}>
         <Typography variant="h5" sx={{ marginBottom: '1rem', fontWeight: 500 }}>
-          {selectedCourse}
+          Course 1
         </Typography>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Student Name</TableCell>
-              {lessons.map((lesson) => (
-                <TableCell key={lesson}>{lesson}</TableCell>
-              ))}
             </TableRow>
           </TableHead>
           <TableBody>
-          {studentAttendance.map((student) => (
-              <TableRow key={student.name}>
-                <TableCell>{student.name}</TableCell>
-                {lessons.map((lesson) => (
-                  <TableCell
-                    key={lesson}
-                    style={{ backgroundColor: getAttendanceColor(student.attendance[lesson]) }}
-                  >
-                    {Math.round(student.attendance[lesson])}%
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
+            <TableRow>
+              <TableCell></TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>

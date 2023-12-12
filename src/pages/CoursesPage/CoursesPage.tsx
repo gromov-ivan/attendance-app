@@ -33,10 +33,18 @@ function CoursesPage() {
     setSelectedTab(newValue);
   };
 
+  const uniqueCourses = React.useMemo(() => {
+    const courseMap = new Map();
+    for (const course of courses) {
+      courseMap.set(course.id, course);
+    }
+    return Array.from(courseMap.values());
+  }, [courses]);
+
   const coursesByStatus = {
-    Active: courses.filter((course) => course.status === 'Active'),
-    Inactive: courses.filter((course) => course.status === 'Inactive'),
-    All: courses,
+    Active: uniqueCourses.filter((course) => course.status === 'Active'),
+    Inactive: uniqueCourses.filter((course) => course.status === 'Inactive'),
+    All: uniqueCourses,
   };
 
   const tabLabels: (keyof typeof coursesByStatus)[] = ['Active', 'Inactive', 'All'];
@@ -55,8 +63,8 @@ function CoursesPage() {
           <Typography variant="h5" sx={{ marginBottom: '0.5rem', fontWeight: 500 }}>
             Your courses
           </Typography>
-          <Typography sx={{ marginBottom: '1rem'}}>
-            All courses in which you are assigned as an instructor are listed here.
+          <Typography sx={{ marginBottom: '1rem' }}>
+            • All courses in which you are assigned as an instructor are listed here.
           </Typography>
         </Grid>
         <Grid item xs={12}>
