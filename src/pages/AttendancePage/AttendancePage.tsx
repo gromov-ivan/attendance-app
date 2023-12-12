@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AttendanceTable from '@/components/AttendanceTable';
-import CourseSelection from '@/components/CourseSelection';
+import AttendanceTable from './AttendanceTable';
+import CourseSelection from './CourseSelection';
 
 const AttendancePage: React.FC = () => {
   return (

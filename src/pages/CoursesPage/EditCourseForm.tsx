@@ -17,11 +17,11 @@ import {
 import { differenceBy } from 'lodash';
 
 import ContainedButton from '@/components/ContainedButton/ContainedButton';
+import { useFetchCoursesAndTeachers } from '@/hooks/useFetchCoursesAndTeachers';
 import {
   fetchCourseTeachers,
   fetchCourseTopics,
   fetchCreatedCourses,
-  fetchTeachers,
   updateCourse,
   updateCourseTopics,
 } from '@/services/courseService';
@@ -29,20 +29,6 @@ import { useUser } from '@/store/user/UserContext';
 import { supabase } from '@/supabaseClient';
 
 import { Course, TeacherProfile } from './types';
-
-const useFetchCoursesAndTeachers = (userId: any, setCourses: any, setTeachers: any) => {
-  useEffect(() => {
-    async function loadData() {
-      if (userId) {
-        const createdCourses = await fetchCreatedCourses(userId);
-        const allTeachers = await fetchTeachers();
-        setCourses(createdCourses);
-        setTeachers(allTeachers.filter((teacher) => teacher.id !== userId));
-      }
-    }
-    loadData();
-  }, [userId, setCourses, setTeachers]);
-};
 
 export const EditCourseForm = ({ onCourseUpdated }: { onCourseUpdated: () => void }) => {
   const { userId } = useUser();

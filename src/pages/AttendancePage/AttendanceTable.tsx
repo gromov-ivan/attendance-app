@@ -25,8 +25,7 @@ const AttendanceTable: React.FC = () => {
   return (
     <Grid container spacing={2} sx={{ padding: '1.5rem' }}>
       <TableContainer component={Paper} sx={{ width: '100%', marginBottom: '1rem' }}>
-        <Typography variant="h5" sx={{ marginBottom: '1rem', fontWeight: 500 }}>
-          Course 1
+        <Typography variant="h5" sx={{ padding: '1rem', fontWeight: 500 }}>
         </Typography>
         <Table>
           <TableHead>

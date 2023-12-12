@@ -41,9 +41,8 @@ const notifications: Notifications = {
 };
 
 const loader = {
-  // removing blinking
-  delay: 300, // if your asynchronous process is finished during 300 milliseconds you will not see the loader at all
-  minimumLoading: 700, // but if it appears, it will stay for at least 700 milliseconds
+  delay: 300,
+  minimumLoading: 700,
 };
 
 const defaultMetaTags = {
@@ -51,13 +50,4 @@ const defaultMetaTags = {
   description: 'Metropolia University of Applied Sciences Attendance App',
 };
 
-export {
-  loader,
-  notifications,
-  dateFormat,
-  messages,
-  repository,
-  email,
-  title,
-  defaultMetaTags,
-};
+export { loader, notifications, dateFormat, messages, repository, email, title, defaultMetaTags };
