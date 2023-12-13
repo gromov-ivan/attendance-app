@@ -48,8 +48,13 @@ function Login() {
         sx={{ fontSize: '1rem', fontWeight: 400, marginBottom: '1rem', maxWidth: '340px' }}
       >
         <span style={{ fontWeight: 600, textDecoration: 'underline' }}>Important</span>
-        <span style={{ fontWeight: 600 }}>:</span> Please use your OMA Metropolia email
-        address and password
+        <span style={{ fontWeight: 600 }}>:</span> Please use your OMA Metropolia email address and
+        password.
+      </Typography>
+      <Typography
+        sx={{ fontSize: '1rem', fontWeight: 400, marginBottom: '1rem', maxWidth: '340px' }}
+      >
+        For testing purposes, all new users are set as teachers. This will be changed in the future.
       </Typography>
       <TextField
         label="Email"

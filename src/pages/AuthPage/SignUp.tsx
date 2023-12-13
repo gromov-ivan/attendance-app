@@ -53,7 +53,7 @@ function SignUp() {
       }
 
       // Set the user role and full name after successful sign-up
-      const role = staffData.staff ? 'teacher' : 'student';
+      const role = staffData.staff ? 'teacher' : 'teacher'; // TEMOPORARY: set all users as teachers
       const fullName = `${staffData.firstname} ${staffData.lastname}`;
 
       if (user.user?.id) {
@@ -90,7 +90,12 @@ function SignUp() {
       >
         <span style={{ fontWeight: 600, textDecoration: 'underline' }}>Important</span>
         <span style={{ fontWeight: 600 }}>:</span> Please use your OMA Metropolia username, email
-        address, and password
+        address, and password.
+      </Typography>
+      <Typography
+        sx={{ fontSize: '1rem', fontWeight: 400, marginBottom: '1rem', maxWidth: '340px' }}
+      >
+        For testing purposes, all new users are set as teachers. This will be changed in the future.
       </Typography>
       <TextField
         label="Username"
