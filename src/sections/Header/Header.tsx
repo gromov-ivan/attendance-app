@@ -14,21 +14,17 @@ import Tooltip from '@mui/material/Tooltip';
 
 import { FlexBox } from '@/components/styled';
 import { title } from '@/config';
-import useHotKeysDialog from '@/store/hotkeys';
 import useNotifications from '@/store/notifications';
 import useSidebar from '@/store/sidebar';
-import { useLogout } from '@/utils/handleLogout';
-
-import { HotKeysButton } from './styled';
 import { useUser } from '@/store/user/UserContext';
+import { useLogout } from '@/utils/handleLogout';
 
 function Header() {
   const [, sidebarActions] = useSidebar();
   const [, notificationsActions] = useNotifications();
-  const [, hotKeysDialogActions] = useHotKeysDialog();
 
   const logout = useLogout();
-  const { fullName } = useUser();
+  const { fullName, userRole } = useUser();
 
   const handleLogoutClick = async () => {
     await logout();
@@ -39,7 +35,7 @@ function Header() {
       options: {
         content: (
           <Alert severity="info">
-            <AlertTitle>Hello, {fullName}</AlertTitle>
+            <AlertTitle>Hello, {fullName}. Your role: {userRole}.</AlertTitle>
           </Alert>
         ),
         autoHideDuration: 3000,
@@ -71,19 +67,6 @@ function Header() {
             </Button>
           </FlexBox>
           <FlexBox>
-            <FlexBox>
-              <Tooltip TransitionComponent={Fade} title="Hot Keys" arrow>
-                <HotKeysButton
-                  size="small"
-                  variant="outlined"
-                  aria-label="open hotkeys dialog"
-                  onClick={hotKeysDialogActions.open}
-                >
-                  alt + /
-                </HotKeysButton>
-              </Tooltip>
-            </FlexBox>
-            <Divider orientation="vertical" flexItem />
             <Tooltip TransitionComponent={Fade} title="Your Account" arrow>
               <IconButton color="primary" size="large" component="a">
                 <AccountBoxIcon />

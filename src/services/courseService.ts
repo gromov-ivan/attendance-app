@@ -1,3 +1,5 @@
+import { difference } from 'lodash';
+
 import { TeacherProfile } from '@/pages/CoursesPage/types';
 import { supabase } from '@/supabaseClient';
 
@@ -50,16 +52,6 @@ export async function fetchTeachers(): Promise<TeacherProfile[]> {
   return data;
 }
 
-export async function assignTeachersToCourse(course_id: string, teacher_ids: string[]) {
-  const { error } = await supabase
-    .from('course_teachers')
-    .insert(teacher_ids.map((teacher_id) => ({ course_id, teacher_id })));
-
-  if (error) {
-    throw new Error(error.message);
-  }
-}
-
 export async function fetchCourseTeachers(course_id: string): Promise<TeacherProfile[]> {
   const { data, error } = await supabase
     .from('course_teachers')
@@ -71,14 +63,18 @@ export async function fetchCourseTeachers(course_id: string): Promise<TeacherPro
     return [];
   }
 
-  const teachers: TeacherProfile[] = data.map(item => {
-    const profile = Array.isArray(item.profiles) ? item.profiles[0] : item.profiles;
+  const teachers: TeacherProfile[] = data
+    .map((item) => {
+      const profile = Array.isArray(item.profiles) ? item.profiles[0] : item.profiles;
 
-    return profile ? {
-      id: profile.id,
-      full_name: profile.full_name,
-    } : null;
-  }).filter((teacher): teacher is TeacherProfile => teacher !== null);
+      return profile
+        ? {
+            id: profile.id,
+            full_name: profile.full_name,
+          }
+        : null;
+    })
+    .filter((teacher): teacher is TeacherProfile => teacher !== null);
 
   return teachers;
 }
@@ -128,18 +124,41 @@ export async function fetchArrayCourseTopics(course_id: string): Promise<string[
 }
 
 export async function updateCourseTopics(course_id: string, topics: string) {
-  await supabase.from('course_topics').delete().eq('course_id', course_id);
-
-  const topicNames = topics
-    .split(';')
-    .map((t) => t.trim())
-    .filter((t) => t !== '');
-
-  const { error } = await supabase
+  const existingTopicsData = await supabase
     .from('course_topics')
-    .insert(topicNames.map((topic_name) => ({ course_id, topic_name })));
+    .select('id, topic_name')
+    .eq('course_id', course_id);
 
-  if (error) {
-    throw new Error(error.message);
+  if (existingTopicsData.error) {
+    throw new Error(existingTopicsData.error.message);
+  }
+
+  const existingTopics = existingTopicsData.data || [];
+
+  const updatedTopics = topics
+    .split(';')
+    .map((topic) => topic.trim())
+    .filter((topic) => topic);
+
+  const topicsToAdd = difference(
+    updatedTopics,
+    existingTopics.map((t) => t.topic_name),
+  );
+
+  const topicsToRemove = existingTopics
+    .filter((t) => !updatedTopics.includes(t.topic_name))
+    .map((t) => t.id);
+
+  await Promise.all(
+    topicsToRemove.map((id) => supabase.from('course_topics').delete().match({ id })),
+  );
+
+  // Add new topics that weren't in the existing list
+  const topicInserts = topicsToAdd.map((topic_name) => ({ course_id, topic_name }));
+  if (topicInserts.length > 0) {
+    const { error } = await supabase.from('course_topics').insert(topicInserts);
+    if (error) {
+      throw new Error(error.message);
+    }
   }
 }

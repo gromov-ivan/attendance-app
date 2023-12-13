@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { Box, Button, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 import ContainedButton from '@/components/ContainedButton/ContainedButton';
 
 import QrCodeForm, { CourseFormData } from './QrCodeForm';
 import QrCodeGenerator from './QrCodeGenerator';
 
-const QrCode: React.FC = () => {
-  const navigate = useNavigate();
+const QrCodePage: React.FC = () => {
   const [courseInfo, setCourseInfo] = useState<CourseFormData>({ courseName: '', topicName: '', date: '' });
   const [qrCodeKey, setQrCodeKey] = useState<number>(0);
   const [isQrCodeActive, setIsQrCodeActive] = useState<boolean>(false);
@@ -20,9 +18,7 @@ const QrCode: React.FC = () => {
     let intervalId: NodeJS.Timeout;
 
     if (isQrCodeActive) {
-      // Update the QR code every 5 seconds
       intervalId = setInterval(() => {
-        // Incrementing the key will force the QrCodeGenerator component to re-render
         setQrCodeKey((prevKey) => prevKey + 1);
       }, 5000);
     }
@@ -43,16 +39,8 @@ const QrCode: React.FC = () => {
     setIsQrCodeActive(true);
   };
 
-  const handleStudentSubmit = () => {
-    // Placeholder names (replace with actual names from the API later)
-    const newStudentNames = [...studentNames, `Student ${studentCount + 1}`];
-    setStudentNames(newStudentNames);
+  const handleStudentCount = () => {
     setStudentCount(studentCount + 1);
-  };
-
-  const handleRedirectToStudentForm = () => {
-    // Redirect to Student Form page with lesson information
-    navigate(`/student-form/${courseInfo.courseName}/${courseInfo.date}`);
   };
 
   return (
@@ -87,14 +75,14 @@ const QrCode: React.FC = () => {
           <ContainedButton
             onClick={handleActivateQrCode}
             disabled={isQrCodeActive}
-            sx={{ marginTop: '1rem' }}
+            sx={{ marginTop: '2rem' }}
           >
             Create QR Code
           </ContainedButton>
           <ContainedButton
             onClick={handleDeactivateQrCode}
             disabled={!isQrCodeActive}
-            sx={{ marginTop: '1rem', marginLeft: '1rem' }}
+            sx={{ marginTop: '2rem', marginLeft: '1rem' }}
           >
             Deactivate QR Code
           </ContainedButton>
@@ -131,23 +119,10 @@ const QrCode: React.FC = () => {
               ))}
             </List>
           </Box>
-
-          {/* Button to simulate student form submission */}
-          <ContainedButton
-            onClick={handleStudentSubmit}
-            disabled={!isQrCodeActive}
-            sx={{ marginRight: '1rem' }}
-          >
-            Add the student manually
-          </ContainedButton>
-          {/* Button to redirect to the Student Form page */}
-          <ContainedButton type="submit"onClick={handleRedirectToStudentForm} disabled={!isQrCodeActive}>
-            Go to Student Form
-          </ContainedButton>
         </div>
       </Box>
     </Box>
   );
 };
 
-export default QrCode;
+export default QrCodePage;

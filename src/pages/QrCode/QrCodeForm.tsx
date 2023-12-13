@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 
-import { Autocomplete, TextField, Typography } from '@mui/material';
+import { Autocomplete, Grid, TextField, Typography } from '@mui/material';
 
 import { fetchArrayCourseTopics, fetchCreatedCourses } from '@/services/courseService';
 import { useUser } from '@/store/user/UserContext';
@@ -20,8 +20,9 @@ interface CourseFormProps {
 }
 
 const QrCodeForm: React.FC<CourseFormProps> = ({ onSubmit, onDeactivate }) => {
-  const { register, handleSubmit, setValue, watch } = useForm<CourseFormData>();
-  const selectedCourse = watch('courseName');
+  const { control, register, handleSubmit, setValue } = useForm<CourseFormData>();
+  const selectedCourse = useWatch({ control, name: 'courseName' });
+  const selectedTopic = useWatch({ control, name: 'topicName' });
 
   const { userId } = useUser();
   const [courses, setCourses] = useState<Course[]>([]);
@@ -32,17 +33,22 @@ const QrCodeForm: React.FC<CourseFormProps> = ({ onSubmit, onDeactivate }) => {
       if (selectedCourse) {
         const topics = await fetchArrayCourseTopics(selectedCourse);
         setCourseTopics(topics);
+      } else {
+        setCourseTopics([]);
       }
     };
     fetchTopics();
   }, [selectedCourse]);
 
-  const handleAutocompleteOpen = async () => {
-    if (userId) {
-      const createdCourses = await fetchCreatedCourses(userId);
-      setCourses(createdCourses);
+  useEffect(() => {
+    if (userId && courses.length === 0) {
+      const fetchCourses = async () => {
+        const createdCourses = await fetchCreatedCourses(userId);
+        setCourses(createdCourses);
+      };
+      fetchCourses();
     }
-  };
+  }, [userId, courses.length]);
 
   const handleCourseChange = (event: any, newValue: Course | null) => {
     setValue('courseName', newValue ? newValue.id : '');
@@ -59,68 +65,77 @@ const QrCodeForm: React.FC<CourseFormProps> = ({ onSubmit, onDeactivate }) => {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <Typography variant="h6" sx={{ marginBottom: '1rem' }}>
-        Course:
-      </Typography>
-      <Autocomplete
-        options={courses}
-        getOptionLabel={(option) => `${option.course_code} | ${option.course_group}`}
-        onChange={handleCourseChange}
-        value={courses.find((course) => course.id === selectedCourse) || null}
-        onOpen={handleAutocompleteOpen}
-        isOptionEqualToValue={(option, value) => option.id === value.id}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Select a course"
-            variant="outlined"
-            {...register('courseName')}
-            sx={{
-              '& .MuiInputBase-root': {
-                backgroundColor: '#fff',
-                borderRadius: '0.5rem',
-              },
-              marginBottom: '2rem',
-            }}
-            size="small"
-            fullWidth
-            required
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h6">
+            Course:
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Autocomplete
+            options={courses}
+            getOptionLabel={(option) => `${option.course_code} | ${option.course_group}`}
+            onChange={handleCourseChange}
+            value={courses.find((course) => course.id === selectedCourse) || null}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Select a course"
+                variant="outlined"
+                {...register('courseName')}
+                sx={{
+                  '& .MuiInputBase-root': {
+                    backgroundColor: '#fff',
+                    borderRadius: '0.5rem',
+                  },
+                }}
+                size="small"
+                fullWidth
+                required
+              />
+            )}
           />
-        )}
-      />
-      <Typography variant="h6" sx={{ marginBottom: '1rem' }}>
-        Topic:
-      </Typography>
-      <Autocomplete
-        options={courseTopics}
-        getOptionLabel={(option) => option}
-        onChange={handleTopicChange}
-        value={watch('topicName')}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Select a topic"
-            variant="outlined"
-            {...register('topicName')}
-            sx={{
-              '& .MuiInputBase-root': {
-                backgroundColor: '#fff',
-                borderRadius: '0.5rem',
-              },
-            }}
-            size="small"
-            fullWidth
-            required
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6">
+            Topic:
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Autocomplete
+            options={courseTopics}
+            getOptionLabel={(option) => option}
+            onChange={handleTopicChange}
+            value={selectedTopic || null}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Select a topic"
+                variant="outlined"
+                {...register('topicName')}
+                sx={{
+                  '& .MuiInputBase-root': {
+                    backgroundColor: '#fff',
+                    borderRadius: '0.5rem',
+                  },
+                }}
+                size="small"
+                fullWidth
+                required
+              />
+            )}
           />
-        )}
-      />
-      <br />
-      <Typography variant="h6" sx={{ marginBottom: '1rem' }}>
-        Date:
-      </Typography>
-      <input type="date" {...register('date')} required />
-      <br />
-      <br />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6">
+            Date:
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <input type="date" {...register('date')} required />
+        </Grid>
+      </Grid>
     </form>
   );
 };

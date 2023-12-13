@@ -21,6 +21,7 @@ export default defineConfig({
       },
     }),
   ],
+  base: 'attendance-app',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
