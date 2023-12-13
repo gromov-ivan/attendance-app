@@ -58,6 +58,7 @@ function Login() {
         onChange={(e) => setEmail(e.target.value)}
         sx={{ mt: '0.5rem' }}
         InputProps={{ sx: { borderRadius: '0.5rem' } }}
+        placeholder="firstname.lastname@metropolia.fi"
         size="small"
         fullWidth
         required

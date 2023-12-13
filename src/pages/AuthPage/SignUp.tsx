@@ -112,6 +112,7 @@ function SignUp() {
         sx={{ mt: '1rem' }}
         InputProps={{ sx: { borderRadius: '0.5rem' } }}
         autoComplete="new-password"
+        placeholder="firstname.lastname@metropolia.fi"
         size="small"
         fullWidth
         required

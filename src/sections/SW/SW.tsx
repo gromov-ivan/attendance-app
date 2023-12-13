@@ -31,7 +31,7 @@ function SW() {
       notificationsActions.push({
         options: {
           autoHideDuration: 4500,
-          content: <Alert severity="success">App is ready to work offline.</Alert>,
+          content: <Alert severity="success">App can be installed.</Alert>,
         },
       });
     } else if (needRefresh) {
