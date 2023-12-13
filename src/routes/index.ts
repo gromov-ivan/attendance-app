@@ -29,12 +29,6 @@ export const teacherRoutes: Routes = {
     title: 'Attendance List',
     icon: FormatListBulletedIcon,
   },
-  Settings: {
-    component: asyncComponentLoader(() => import('@/pages/Settings')),
-    path: '/settings',
-    title: 'Settings',
-    icon: SettingsIcon,
-  },
 };
 
 export const studentRoutes: Routes = {
@@ -58,8 +52,6 @@ export const teacherLinks: SidebarLink[] = [
   teacherRoutes.Courses,
   teacherRoutes.AttendanceList,
   teacherRoutes.QrCode,
-  teacherRoutes.StudentForm,
-  teacherRoutes.Settings,
 ];
 
 export const studentLinks: SidebarLink[] = [
