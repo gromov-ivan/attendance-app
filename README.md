@@ -18,11 +18,12 @@ https://metropolia-attendance-app.vercel.app
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/dbadaa15-1ab5-4980-b12b-2c4d05915010" alt="Teacher view: Attendance List"/>
 
 ## Technical Stack
-- Frontend: [React](https://react.dev/), [MUI](https://mui.com/) v5, and [Vite](https://vitejs.dev/) for a fast, modern UI.
-- Backend: [Supabase](https://supabase.com/) for backend services including database, authentication, and storage.
-- PWA Support: Implemented using [Vite PWA plugin](https://vite-pwa-org.netlify.app/).
+- **Frontend**: [React](https://react.dev/), [MUI](https://mui.com/) v5, and [Vite](https://vitejs.dev/) for a fast, modern UI.
+- **Backend**: [Supabase](https://supabase.com/) and for backend services including database and authentication.
+- **Metropolia Users API**: Integration with Metropolia Users API to authenticate and verify Metropolia students and staff.
+- **PWA Support**: Implemented using [Vite PWA plugin](https://vite-pwa-org.netlify.app/).
 
-- Current database schema:
+- Current Postgres database schema:
   
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/04fecbaf-a02c-4e2f-a574-d27c2a3f0618" alt="Database Schema"/>
 
