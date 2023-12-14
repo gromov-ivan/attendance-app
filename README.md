@@ -20,8 +20,8 @@ https://metropolia-attendance-app.vercel.app
 ## Technical Stack
 - **Frontend**: [React](https://react.dev/), [MUI](https://mui.com/) v5, and [Vite](https://vitejs.dev/) for a fast, modern UI.
 - **Backend**: [Supabase](https://supabase.com/) and for backend services including database and authentication.
-- **Metropolia Users API**: Integration with Metropolia Users API to authenticate and verify Metropolia students and staff.
-- **PWA Support**: Implemented using [Vite PWA plugin](https://vite-pwa-org.netlify.app/).
+- **Metropolia Opendata and Users API**: Integration with Metropolia Users API to authenticate and verify Metropolia students and staff.
+- **PWA Support**: Implemented using [Vite PWA Plugin](https://vite-pwa-org.netlify.app/).
 
 - Current Postgres database schema:
   
