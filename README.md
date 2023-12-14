@@ -27,6 +27,56 @@ https://metropolia-attendance-app.vercel.app
   
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/04fecbaf-a02c-4e2f-a574-d27c2a3f0618" alt="Database Schema"/>
 
+## Local Development Setup
+
+To set up and develop the Attendance App locally, follow these steps:
+
+### Prerequisites
+- Node.js (v18 or later)
+
+### Clone the Repository
+
+First, clone the repository to your local machine:
+
+```
+git clone https://github.com/gromov-ivan/attendance-app.git
+cd attendance-app
+```
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory of the project. This file should contain the following environment variables:
+
+- `VITE_SUPABASE_URL`: The URL of your Supabase project.
+- `VITE_SUPABASE_ANON_KEY`: The anonymous key for your Supabase project.
+- `VITE_API_KEY_METROPOLIA`: The API key for the Metropolia API.
+
+To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, follow the Supabase guide [here](http://localhost:5731/). Create a database, as shown in the "Current Postgres database schema" above. 
+
+For `VITE_API_KEY_METROPOLIA`, refer to the Metropolia guide [here](https://wiki.metropolia.fi/pages/viewpage.action?pageId=84543748).
+
+Your .env.local file should look like this:
+
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_API_KEY_METROPOLIA=your_metropolia_api_key
+```
+
+### Install Dependencies
+Install the necessary npm packages:
+
+```
+npm install
+```
+
+### Run the Application
+To start the development server:
+
+```
+npm run dev
+```
+
 ## Contributing
 Contributions are welcome. Please open issues for any bugs or feature requests and submit pull requests for any improvements.
 
