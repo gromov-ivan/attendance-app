@@ -27,18 +27,18 @@ https://metropolia-attendance-app.vercel.app
 To set up and develop the Attendance App locally, follow these steps:
 
 ### Prerequisites
-- Node.js (v18 or later)
+- [Node.js](https://nodejs.org/en) (v18 or later)
 
 ### Clone the Repository
 
 First, clone the repository to your local machine:
 
-```
+```bash
 git clone https://github.com/gromov-ivan/attendance-app.git
 cd attendance-app
 ```
 
-### Environment Variables
+### Environment Variables, Supabase Setup, and Metropolia API
 
 ####  1. Create a `.env.local` file in the root directory of the project.
 This file should contain the following environment variables:
@@ -47,15 +47,20 @@ This file should contain the following environment variables:
 - `VITE_SUPABASE_ANON_KEY`: The anonymous key for your Supabase project.
 - `VITE_API_KEY_METROPOLIA`: The API key for the Metropolia API.
 
+Your `.env.local` file should look like this:
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_API_KEY_METROPOLIA=your_metropolia_api_key
+```
+
 #### 2. Supabase setup
 To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`:
 - [Create a Supabase project](https://supabase.com/docs/guides/getting-started/tutorials/with-react#create-a-project).
 - [Set up the database schema](https://supabase.com/docs/guides/getting-started/tutorials/with-react#set-up-the-database-schema).
 - [Get the API Keys](https://supabase.com/docs/guides/getting-started/tutorials/with-react#get-the-api-keys). 
 
-- The database should have the following structure:
-  
-<img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/04fecbaf-a02c-4e2f-a574-d27c2a3f0618" alt="Database Schema"/>
+For detailed instructions and SQL commands, see the [Attendace App Database Setup Guide](./DATABASE_SETUP.md).
 
 #### 3. Metropolia API setup
 To get the Metropolia API key for `VITE_API_KEY_METROPOLIA`, follow the instructions in the [Metropolia guide](https://wiki.metropolia.fi/pages/viewpage.action?pageId=84543748).
@@ -63,14 +68,14 @@ To get the Metropolia API key for `VITE_API_KEY_METROPOLIA`, follow the instruct
 ### Install Dependencies
 Install the necessary npm packages:
 
-```
+```bash
 npm install
 ```
 
 ### Run the Application
 To start the development server:
 
-```
+```bash
 npm run dev
 ```
 
