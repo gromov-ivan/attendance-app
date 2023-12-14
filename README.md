@@ -60,7 +60,7 @@ To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`:
 - [Set up the database schema](https://supabase.com/docs/guides/getting-started/tutorials/with-react#set-up-the-database-schema).
 - [Get the API Keys](https://supabase.com/docs/guides/getting-started/tutorials/with-react#get-the-api-keys). 
 
-For detailed instructions and SQL commands, see the [Attendace App Database Setup Guide](./DATABASE_SETUP.md).
+For detailed database instructions and SQL commands, see the [Attendace App Database Setup Guide](./DATABASE_SETUP.md).
 
 #### 3. Metropolia API setup
 To get the Metropolia API key for `VITE_API_KEY_METROPOLIA`, follow the instructions in the [Metropolia guide](https://wiki.metropolia.fi/pages/viewpage.action?pageId=84543748).
