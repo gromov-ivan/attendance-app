@@ -93,3 +93,8 @@ create table
     )
   ) tablespace pg_default;
 ```
+## Evolving Database Structure
+Please note that the database structure provided here is subject to change as the project evolves.
+
+## Suggestions and Improvements
+We welcome suggestions and improvements to the database structure. If you have ideas or recommendations, please feel free to open an issue or submit a pull request on our GitHub repository
