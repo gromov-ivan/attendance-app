@@ -47,7 +47,7 @@ cd attendance-app
 - `VITE_API_KEY_METROPOLIA`: The API key for the Metropolia API.
 
 #### 2. Supabase setup
-- To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, create a project by following the Supabase guide [here](https://supabase.com/docs/guides/getting-started/tutorials/with-react#create-a-project). 
+- To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, [create a project](https://supabase.com/docs/guides/getting-started/tutorials/with-react#create-a-project), [set up the database schema](https://supabase.com/docs/guides/getting-started/tutorials/with-react#set-up-the-database-schema), and [get the API Keys](https://supabase.com/docs/guides/getting-started/tutorials/with-react#get-the-api-keys) by following the Supabase guide. 
 - The database should have the following structure:
   
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/04fecbaf-a02c-4e2f-a574-d27c2a3f0618" alt="Database Schema"/>
