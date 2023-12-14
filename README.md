@@ -40,28 +40,25 @@ cd attendance-app
 
 ### Environment Variables
 
-####  1. Create a `.env.local` file in the root directory of the project. This file should contain the following environment variables:
+####  1. Create a `.env.local` file in the root directory of the project.
+This file should contain the following environment variables:
 
 - `VITE_SUPABASE_URL`: The URL of your Supabase project.
 - `VITE_SUPABASE_ANON_KEY`: The anonymous key for your Supabase project.
 - `VITE_API_KEY_METROPOLIA`: The API key for the Metropolia API.
 
 #### 2. Supabase setup
-- To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, [create a project](https://supabase.com/docs/guides/getting-started/tutorials/with-react#create-a-project), [set up the database schema](https://supabase.com/docs/guides/getting-started/tutorials/with-react#set-up-the-database-schema), and [get the API Keys](https://supabase.com/docs/guides/getting-started/tutorials/with-react#get-the-api-keys) by following the Supabase guide. 
+To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`:
+- [Create a Supabase project](https://supabase.com/docs/guides/getting-started/tutorials/with-react#create-a-project).
+- [Set up the database schema](https://supabase.com/docs/guides/getting-started/tutorials/with-react#set-up-the-database-schema).
+- [Get the API Keys](https://supabase.com/docs/guides/getting-started/tutorials/with-react#get-the-api-keys). 
+
 - The database should have the following structure:
   
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/04fecbaf-a02c-4e2f-a574-d27c2a3f0618" alt="Database Schema"/>
 
 #### 3. Metropolia API setup
-- To get the Metropolia API key for `VITE_API_KEY_METROPOLIA`, refer to the Metropolia guide [here](https://wiki.metropolia.fi/pages/viewpage.action?pageId=84543748).
-
-#### Your .env.local file should look like this:
-
-```
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-VITE_API_KEY_METROPOLIA=your_metropolia_api_key
-```
+To get the Metropolia API key for `VITE_API_KEY_METROPOLIA`, follow the instructions in the [Metropolia guide](https://wiki.metropolia.fi/pages/viewpage.action?pageId=84543748).
 
 ### Install Dependencies
 Install the necessary npm packages:
