@@ -42,8 +42,12 @@ function SW() {
           persist: true,
           action: (
             <>
-              <Button onClick={() => updateServiceWorker(true)}>Reload</Button>
-              <Button onClick={close}>Close</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => updateServiceWorker(true)}>
+                Reload
+              </Button>
+              <Button sx={{ color: '#fff' }} onClick={close}>
+                Close
+              </Button>
             </>
           ),
         },
