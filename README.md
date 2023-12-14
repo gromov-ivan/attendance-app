@@ -13,7 +13,6 @@ https://metropolia-attendance-app.vercel.app
 ## Screenshots
 
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/b549d6bb-46ec-4e2b-a1b2-e3555503c882" alt="Teacher view: Course Dashboard"/>
-<img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/e83654c6-022a-4ecc-88b2-d7cc4f3814eb" alt="Teacher view: Course Dashboard, Edit Courses."/>
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/9ad8be6e-258f-4889-a292-59e8451f6d79" alt="Teacher view: Mark Attendance"/>
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/dbadaa15-1ab5-4980-b12b-2c4d05915010" alt="Teacher view: Attendance List"/>
 
@@ -22,10 +21,6 @@ https://metropolia-attendance-app.vercel.app
 - **Backend**: [Supabase](https://supabase.com/) and for backend services including database and authentication.
 - **Metropolia Opendata and Users API**: Integration with Metropolia Users API to authenticate and verify Metropolia students and staff.
 - **PWA Support**: Implemented using [Vite PWA Plugin](https://vite-pwa-org.netlify.app/).
-
-- Current Postgres database schema:
-  
-<img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/04fecbaf-a02c-4e2f-a574-d27c2a3f0618" alt="Database Schema"/>
 
 ## Local Development Setup
 
@@ -45,17 +40,22 @@ cd attendance-app
 
 ### Environment Variables
 
-Create a `.env.local` file in the root directory of the project. This file should contain the following environment variables:
+####  1. Create a `.env.local` file in the root directory of the project. This file should contain the following environment variables:
 
 - `VITE_SUPABASE_URL`: The URL of your Supabase project.
 - `VITE_SUPABASE_ANON_KEY`: The anonymous key for your Supabase project.
 - `VITE_API_KEY_METROPOLIA`: The API key for the Metropolia API.
 
-To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, follow the Supabase guide [here](https://supabase.com/docs/guides/getting-started/tutorials/with-react#create-a-project). Create a database, as shown in the "Current Postgres database schema" section above. 
+#### 2. Supabase setup
+- To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, create a project by following the Supabase guide [here](https://supabase.com/docs/guides/getting-started/tutorials/with-react#create-a-project). 
+- The database should have the following structure:
+  
+<img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/04fecbaf-a02c-4e2f-a574-d27c2a3f0618" alt="Database Schema"/>
 
-For `VITE_API_KEY_METROPOLIA`, refer to the Metropolia guide [here](https://wiki.metropolia.fi/pages/viewpage.action?pageId=84543748).
+#### 3. Metropolia API setup
+- To get the Metropolia API key for `VITE_API_KEY_METROPOLIA`, refer to the Metropolia guide [here](https://wiki.metropolia.fi/pages/viewpage.action?pageId=84543748).
 
-Your .env.local file should look like this:
+#### Your .env.local file should look like this:
 
 ```
 VITE_SUPABASE_URL=your_supabase_url
