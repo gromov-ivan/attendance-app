@@ -51,7 +51,7 @@ Create a `.env.local` file in the root directory of the project. This file shoul
 - `VITE_SUPABASE_ANON_KEY`: The anonymous key for your Supabase project.
 - `VITE_API_KEY_METROPOLIA`: The API key for the Metropolia API.
 
-To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, follow the Supabase guide [here](http://localhost:5731/). Create a database, as shown in the "Current Postgres database schema" above. 
+To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, follow the Supabase guide [here](https://supabase.com/docs/guides/getting-started/tutorials/with-react#create-a-project). Create a database, as shown in the "Current Postgres database schema" section above. 
 
 For `VITE_API_KEY_METROPOLIA`, refer to the Metropolia guide [here](https://wiki.metropolia.fi/pages/viewpage.action?pageId=84543748).
 
