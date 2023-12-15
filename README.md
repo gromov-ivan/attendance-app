@@ -55,7 +55,7 @@ VITE_API_KEY_METROPOLIA=your_metropolia_api_key
 ```
 
 #### 2. Supabase setup
-To obtain `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`:
+To obtain the values for `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`:
 - [Create a Supabase project](https://supabase.com/docs/guides/getting-started/tutorials/with-react#create-a-project).
 - [Set up the database schema](https://supabase.com/docs/guides/getting-started/tutorials/with-react#set-up-the-database-schema).
 - [Get the API Keys](https://supabase.com/docs/guides/getting-started/tutorials/with-react#get-the-api-keys). 
