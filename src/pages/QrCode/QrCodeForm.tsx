@@ -3,7 +3,7 @@ import { useForm, useWatch } from 'react-hook-form';
 
 import { Autocomplete, Grid, TextField, Typography } from '@mui/material';
 
-import { fetchArrayCourseTopics, fetchCreatedCourses } from '@/services/courseService';
+import { fetchArrayCourseTopics, fetchCourses } from '@/services/courseService';
 import { useUser } from '@/store/user/UserContext';
 
 import { Course } from '../CoursesPage/types';
@@ -28,6 +28,21 @@ const QrCodeForm: React.FC<CourseFormProps> = ({ onSubmit, onDeactivate }) => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [courseTopics, setCourseTopics] = useState<string[]>([]);
 
+  const loadCourses = React.useCallback(() => {
+    if (userId) {
+      fetchCourses(userId).then((loadedCourses) => {
+        const activeCourses = loadedCourses.filter(
+          (course: { status: string }) => course.status === 'Active',
+        );
+        setCourses(activeCourses);
+      });
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    loadCourses();
+  }, [loadCourses]);
+
   useEffect(() => {
     const fetchTopics = async () => {
       if (selectedCourse) {
@@ -39,16 +54,6 @@ const QrCodeForm: React.FC<CourseFormProps> = ({ onSubmit, onDeactivate }) => {
     };
     fetchTopics();
   }, [selectedCourse]);
-
-  useEffect(() => {
-    if (userId && courses.length === 0) {
-      const fetchCourses = async () => {
-        const createdCourses = await fetchCreatedCourses(userId);
-        setCourses(createdCourses);
-      };
-      fetchCourses();
-    }
-  }, [userId, courses.length]);
 
   const handleCourseChange = (event: any, newValue: Course | null) => {
     setValue('courseName', newValue ? newValue.id : '');
@@ -67,8 +72,10 @@ const QrCodeForm: React.FC<CourseFormProps> = ({ onSubmit, onDeactivate }) => {
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="h6">
-            Course:
+          <Typography variant="h6">Course:</Typography>
+          <Typography>
+            All the <span style={{ fontWeight: 600 }}>active</span> courses in which you are
+            assigned as a teacher are listed here.
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -98,9 +105,8 @@ const QrCodeForm: React.FC<CourseFormProps> = ({ onSubmit, onDeactivate }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6">
-            Topic:
-          </Typography>
+          <Typography variant="h6">Topic:</Typography>
+          <Typography>Topics in the course.</Typography>
         </Grid>
         <Grid item xs={12}>
           <Autocomplete
@@ -128,12 +134,20 @@ const QrCodeForm: React.FC<CourseFormProps> = ({ onSubmit, onDeactivate }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6">
-            Date:
-          </Typography>
+          <Typography variant="h6">Date:</Typography>
         </Grid>
         <Grid item xs={12}>
-          <input type="date" {...register('date')} required />
+          <input
+            type="date"
+            style={{
+              border: '1px solid #bfbfbf',
+              borderRadius: '0.5rem',
+              height: '40px',
+              padding: '0.5rem',
+            }}
+            {...register('date')}
+            required
+          />
         </Grid>
       </Grid>
     </form>

@@ -64,7 +64,7 @@ function CoursesPage() {
             Your courses
           </Typography>
           <Typography sx={{ marginBottom: '1rem' }}>
-            • All courses in which you are assigned as an instructor are listed here.
+            All courses in which you are assigned as an instructor are listed here.
           </Typography>
         </Grid>
         <Grid item xs={12}>
