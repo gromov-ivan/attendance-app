@@ -12,7 +12,7 @@ https://metropolia-attendance-app.vercel.app
 
 ## Screenshots
 
-<img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/918e547a-384c-460e-a012-a4a1237b6304" alt="Teacher view: Course Dashboard"/>
+<img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/7046d3da-db0e-4699-a09f-68659453cd81" alt="Teacher view: Course Dashboard"/>
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/a684c7fe-47cb-403a-a3a6-5d3d86451bcc" alt="Teacher view: Mark Attendance"/>
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/dbadaa15-1ab5-4980-b12b-2c4d05915010" alt="Teacher view: Attendance List"/>
 
