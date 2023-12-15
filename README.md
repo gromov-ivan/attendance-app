@@ -13,8 +13,7 @@ https://metropolia-attendance-app.vercel.app
 ## Screenshots
 
 <img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/7046d3da-db0e-4699-a09f-68659453cd81" alt="Teacher view: Course Dashboard"/>
-<img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/a684c7fe-47cb-403a-a3a6-5d3d86451bcc" alt="Teacher view: Mark Attendance"/>
-<img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/dbadaa15-1ab5-4980-b12b-2c4d05915010" alt="Teacher view: Attendance List"/>
+<img src="https://github.com/gromov-ivan/attendance-app/assets/122451258/21130d98-1938-4ffc-b83f-f5c799c3288f" alt="Teacher view: Mark Attendance"/>
 
 ## Technical Stack
 - **Frontend**: [React](https://react.dev/), [MUI](https://mui.com/) v5, and [Vite](https://vitejs.dev/) for a fast, modern UI.
